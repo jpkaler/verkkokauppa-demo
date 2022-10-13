@@ -22,7 +22,7 @@ let tempDatabase = [{
 const db = new sqlite3.Database('../tuotteet.db');
 
 // GET -> koko tuotetietokanta
-app.get("/verkkokauppa", (req,res) => {  // function(request,response) on sama kuin (req,res) =>
+app.get("/api/verkkokauppa", (req,res) => {  // function(request,response) on sama kuin (req,res) =>
     
     db.all('SELECT * FROM tuotteet', (err, rows) => { 
         return res.status(200).json(rows);
@@ -31,14 +31,14 @@ app.get("/verkkokauppa", (req,res) => {  // function(request,response) on sama k
 });
 
 //GET -> kaikki kategoriat
-app.get("/verkkokauppa/kategoriat", (req,res) => {
+app.get("/api/verkkokauppa/kategoriat", (req,res) => {
     db.all('SELECT KATEGORIA FROM tuotteet WHERE KATEGORIA NOT NULL GROUP BY KATEGORIA', (err, rows) => {
         return res.status(200).send(rows);
     })
 })
 
 //GET -> yhden kategorian tuotteet
-app.get("/verkkokauppa/kategoriat/:category", (req,res) => {
+app.get("/api/verkkokauppa/kategoriat/:category", (req,res) => {
 
     db.all('SELECT * FROM tuotteet WHERE KATEGORIA=$category', 
         {
@@ -53,7 +53,7 @@ app.get("/verkkokauppa/kategoriat/:category", (req,res) => {
 })
 
 // GET -> yksi tuote tietokannasta SQLite
-app.get("/verkkokauppa/:productId", (req, res) => {
+app.get("/api/verkkokauppa/:productId", (req, res) => {
     
     db.get('SELECT * FROM tuotteet WHERE ID=$productId', // Käytetään SQL:ää tuotteen löytämiseksi
         {
