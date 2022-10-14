@@ -5,6 +5,7 @@ const sqlite3 = require('sqlite3');
 let app = express();                    //
 app.use(express.json());                //kaikki menee expressin kautta
 
+ 
 /* // Dummy Database
 let tempDatabase = [{
     id:1,
@@ -19,20 +20,25 @@ let tempDatabase = [{
 }]; */
 
 // Product Database
-const db = new sqlite3.Database('../tuotteet.db');
+
+const db = new sqlite3.Database('../products.db');
+
 
 // GET -> koko tuotetietokanta
 app.get("/api/verkkokauppa", (req,res) => {  // function(request,response) on sama kuin (req,res) =>
     
-    db.all('SELECT * FROM tuotteet', (err, rows) => { 
+    db.all('SELECT * FROM products', (err, rows) => { 
         return res.status(200).json(rows);
     })
 
+
 });
+
 
 //GET -> kaikki kategoriat
 app.get("/api/verkkokauppa/kategoriat", (req,res) => {
-    db.all('SELECT KATEGORIA FROM tuotteet WHERE KATEGORIA NOT NULL GROUP BY KATEGORIA', (err, rows) => {
+    db.all('SELECT category FROM products WHERE category NOT NULL GROUP BY category', (err, rows) => {
+
         return res.status(200).send(rows);
     })
 })
@@ -40,7 +46,8 @@ app.get("/api/verkkokauppa/kategoriat", (req,res) => {
 //GET -> yhden kategorian tuotteet
 app.get("/api/verkkokauppa/kategoriat/:category", (req,res) => {
 
-    db.all('SELECT * FROM tuotteet WHERE KATEGORIA=$category', 
+    db.all('SELECT * FROM products WHERE category=$category', 
+
         {
             $category: req.params.category
         }, (err, rows) => {
@@ -55,7 +62,9 @@ app.get("/api/verkkokauppa/kategoriat/:category", (req,res) => {
 // GET -> yksi tuote tietokannasta SQLite
 app.get("/api/verkkokauppa/:productId", (req, res) => {
     
-    db.get('SELECT * FROM tuotteet WHERE ID=$productId', // Käytetään SQL:ää tuotteen löytämiseksi
+
+    db.get('SELECT * FROM products WHERE ID=$productId', // Käytetään SQL:ää tuotteen löytämiseksi
+
         {
             $productId: req.params.productId // Määritellään productId
         }, (err, row) => {
@@ -66,10 +75,6 @@ app.get("/api/verkkokauppa/:productId", (req, res) => {
             
         })
 })
-
-
-
-
 
 //dev portti
 let port = process.env.PORT || 3001;
