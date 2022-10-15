@@ -3,7 +3,7 @@ import Product from './Product';
 const ProductList = (props) => {
     console.log("Tuotteet");
 
-    let products =  props.filteredProducts().map((product) => {
+    let products =  props.products.map((product) => {
         return <Product key={product.ID} name={product.name} price={product.price} category={product.category} />
     })
   

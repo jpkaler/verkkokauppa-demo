@@ -1,13 +1,12 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import ProductList from './components/ProductList';
-import SearchBar from './components/SearchBar';
+import { Routes, Route } from 'react-router-dom';
+import SearchPage from './components/SearchPage';
 
 function App() {
 
   const [state, setState] = useState({
     products:[],
-    search:"",
     loading:false
   })
 
@@ -20,16 +19,6 @@ function App() {
     action:"getdata"
   })
 
-  // Muokkaa search-statea 
-  const setSearch = (search) => {
-    setState((state) => {
-      return {
-        ...state,
-        search: search
-      }
-    })
-  }
-
 
   // UseEffect -> hakee datan url-actionin perusteella
   useEffect(() => {
@@ -39,7 +28,12 @@ function App() {
       if(!urlRequest.url) {
         return;
       }
-      
+      setState((state) => {
+        return {
+          ...state,
+          loading:true
+        }     
+      })
       let response = await fetch(urlRequest.url, urlRequest.request);
       console.log("data haettu")
       
@@ -88,28 +82,20 @@ function App() {
 		})
 	}
 
-  // Funktio, joka filtteröi tuotteet haun mukaan
-  const filteredProducts = () => {
-    let tempProducts = state.products.filter((product) => {
-      return product.name.includes(state.search)
-    });
-    return tempProducts;
-  }
-
   //Renderöi tuotteet vasta kun data on haettu
   let productSpace = <></>
   if (state.loading) {
     productSpace = <h3>Tuotteita ladataan...</h3>
   } else {
-    productSpace = <ProductList products={state.products} filteredProducts={filteredProducts}/>
+    productSpace = <SearchPage products={state.products} />
   }
 
   return (
     <div>
       <h1>Verkkokauppa</h1>
-      <SearchBar setSearch={setSearch} />
-      {productSpace}
-      
+      <Routes>
+        <Route exact path="/" element={productSpace}/>
+      </Routes>
     </div>
   );
 }
