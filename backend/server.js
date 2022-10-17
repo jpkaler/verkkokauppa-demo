@@ -33,7 +33,7 @@ app.get("/api/verkkokauppa", (req,res) => {  // function(request,response) on sa
 
 
 });
-
+/* 
 
 //GET -> kaikki kategoriat
 app.get("/api/verkkokauppa/kategoriat", (req,res) => {
@@ -75,7 +75,7 @@ app.get("/api/verkkokauppa/:productId", (req, res) => {
             
         })
 })
-
+ */
 //dev portti
 let port = process.env.PORT || 3001;
 app.listen(port);

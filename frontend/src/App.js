@@ -2,6 +2,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import SearchPage from './components/SearchPage';
+import ProductPage from './components/ProductPage';
 
 function App() {
 
@@ -18,6 +19,8 @@ function App() {
     },
     action:"getdata"
   })
+
+
 
 
   // UseEffect -> hakee datan url-actionin perusteella
@@ -41,7 +44,6 @@ function App() {
         switch(urlRequest.action) {
           case "getdata":
             let data = await response.json();
-            console.log("response json")
             if (data) {
               setState((state) => {
                 return {
@@ -70,32 +72,21 @@ function App() {
 
   }, [urlRequest]);
 
-  // Funktio, joka muokkaa urlRequestia -> ei tarvita vielä
-  const getData = () => {
-		setUrlRequest({
-			url:"/api/verkkokauppa",
-			request:{
-				method:"GET",
-				headers:{"Content-Type":"application/json"}
-			},
-			action:"getdata"
-		})
-	}
-
   //Renderöi tuotteet vasta kun data on haettu
-  let productSpace = <></>
+  let tempRender = <></>
   if (state.loading) {
-    productSpace = <h3>Tuotteita ladataan...</h3>
+    tempRender = <h3>Tuotteita ladataan...</h3>
   } else {
-    productSpace = <SearchPage products={state.products} />
+    tempRender = <Routes>
+                    <Route exact path="/" element={<SearchPage products={state.products} />}/>
+                    <Route path="/:productId" element={<ProductPage products={state.products}/>}/>
+                  </Routes>
   }
 
   return (
     <div>
       <h1>Verkkokauppa</h1>
-      <Routes>
-        <Route exact path="/" element={productSpace}/>
-      </Routes>
+      {tempRender}
     </div>
   );
 }
