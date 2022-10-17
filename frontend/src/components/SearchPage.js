@@ -24,7 +24,7 @@ const SearchPage = (props) => {
         let tempProducts = props.products.filter((product) => {
             return product.name.includes(state.search)
         });
-        console.log(`Haku muuttui ${state.search}`)
+        console.log("SearchPage renderöi")
         setState((state) => {
             return {
                 ...state,
