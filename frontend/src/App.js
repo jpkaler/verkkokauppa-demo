@@ -2,6 +2,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import SearchPage from './components/SearchPage';
+import Navbar from './components/Navbar';
 
 function App() {
 
@@ -92,7 +93,7 @@ function App() {
 
   return (
     <div>
-      <h1>Verkkokauppa</h1>
+      <Navbar/>
       <Routes>
         <Route exact path="/" element={productSpace}/>
       </Routes>
