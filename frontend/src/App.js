@@ -8,6 +8,7 @@ import ProductPage from './components/ProductPage';
 function App() {
 
   const [state, setState] = useState({
+    search:"",
     products:[],
     loading:false
   })
@@ -73,23 +74,30 @@ function App() {
 
   }, [urlRequest]);
 
+  const setSearch = (search) => {
+    setState((state) => {
+        return {
+            ...state,
+            search:search
+        }      
+    });
+  }
+
   //Renderöi tuotteet vasta kun data on haettu
   let tempRender = <></>
   if (state.loading) {
     tempRender = <h3>Tuotteita ladataan...</h3>
   } else {
     tempRender = <Routes>
-                    <Route exact path="/" element={<SearchPage products={state.products} />}/>
+                    <Route exact path="/" element={<SearchPage products={state.products} search={state.search}/>}/>
                     <Route path="/:productId" element={<ProductPage products={state.products}/>}/>
                   </Routes>
   }
 
   return (
     <div>
-      <Navbar/>
-      <Routes>
-        <Route exact path="/" element={productSpace}/>
-      </Routes>
+      <Navbar setSearch={setSearch}/>
+      {tempRender}
     </div>
   );
 }

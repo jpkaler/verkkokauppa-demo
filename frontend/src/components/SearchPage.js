@@ -1,28 +1,16 @@
 import { useEffect, useState } from 'react';
-import SearchBar from "./SearchBar";
 import ProductList from "./ProductList";
 
 const SearchPage = (props) => {
 
     const [state, setState] = useState({
-        search:"",
         products:[]
     })
-
-    // Muokkaa search-statea 
-    const setSearch = (search) => {
-        setState((state) => {
-            return {
-                ...state,
-                search:search
-            }      
-        });
-    }
 
     // Muokkaa tuotelistaa hakukentän muutoksesta
     useEffect(() => {
         let tempProducts = props.products.filter((product) => {
-            return product.name.includes(state.search)
+            return product.name.includes(props.search)
         });
         console.log("SearchPage renderöi")
         setState((state) => {
@@ -31,11 +19,10 @@ const SearchPage = (props) => {
                 products:tempProducts
             }
         })
-    }, [state.search])
+    }, [props.search])
 
     return (
         <div>
-            <SearchBar setSearch={setSearch} />
             <ProductList products={state.products} />
         </div>
     )

@@ -1,22 +1,21 @@
-import {Link} from 'react-router-dom';
 import { CNav, CNavbar, CHeaderBrand, CForm, CFormInput, CButton, CNavbarBrand, CNavItem, CNavLink, CContainer, 
             CDropdown, CDropdownMenu, CDropdownItem, CDropdownToggle } from '@coreui/react'
-import SearchBar from './SearchBar';
 import { useState, useEffect } from 'react';
 
 const Navbar = (props) => {
 
+
+    // Hakukentän toiminnallisuus
     const [state, setState] = useState({
-        search:"",
-        products:[]
+        search:""
     })
-    const setSearch = (search) => {
-        setState((state) => {
-            return {
-                ...state,
-                search:search
-            }      
-        });
+    
+    useEffect(() => {
+        props.setSearch(state.search);
+    }, [state])
+
+    const onChange = (event) => {
+        setState({[event.target.name]: event.target.value})
     }
 
     const [visible, setVisible] = useState(false)
@@ -24,9 +23,9 @@ const Navbar = (props) => {
     //CNavbar: "sticky-top" pitää Navbarin aina näkyvillä.
 
     return (
-    <CNavbar expand="lg" colorScheme="dark" className="bg-dark" placement="sticky-top"> 
+    <CNavbar expand="lg" className="bg-success"  placement="sticky-top"> 
     <CContainer fluid>
-        <CHeaderBrand href="etusivu">
+        <CHeaderBrand href="/" color="">
             Verkkokauppa
         </CHeaderBrand>
         
@@ -42,21 +41,15 @@ const Navbar = (props) => {
 
     <CContainer fluid>
         <CForm className="d-flex justify-content-e" >
-
-        <SearchBar setSearch={setSearch} className="me-2" />
         
-        {/*     <CFormInput type="search" className="me-2" placeholder="tuotteen nimi" />
-            <CButton id="SearchButton" type="submit" variant="outline" color="success">
-                Etsi tuotetta
-            </CButton>  */}
+            <CFormInput type="text"
+                    name="search"
+                    id="search"
+                    placeholder='Hae tuotetta'
+                    onChange={onChange}
+                    value={state.search} />
         </CForm>
         </CContainer>
-            <CNavLink href="#" active>
-                    Linkki
-            </CNavLink>
-            <CNavLink href="#" active>
-                    Linkki
-            </CNavLink>
     </CNavbar>
     )
 }
