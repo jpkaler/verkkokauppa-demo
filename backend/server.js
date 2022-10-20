@@ -12,13 +12,13 @@ const db = new sqlite3.Database('../products.db');
 
 // GET -> hakukriteerin mukainen tuotetietokanta
 app.get("/api/verkkokauppa/", (req,res) => {  
-    if (req.query.search || req.query.category) {
+    if (req.query.search) {
         db.all("SELECT * FROM products WHERE name LIKE $search", {
             $search: '%' + req.query.search + '%'
         },
              (err, rows) => {
                 if (!rows[0]) {
-                    return res.status(404).json({message:"No products found"})
+                    return res.status(404).json({message:"No products found"});
                 }
                 return res.status(200).json(rows);
             }

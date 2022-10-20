@@ -1,6 +1,5 @@
-import { CNav, CNavbar, CHeaderBrand, CForm, CFormInput, CButton, CNavbarBrand, CNavItem, CNavLink, CContainer, 
-            CDropdown, CDropdownMenu, CDropdownItem, CDropdownToggle } from '@coreui/react'
-import { useState, useEffect } from 'react';
+import { CNavbar, CHeaderBrand, CForm, CFormInput, CButton, CContainer } from '@coreui/react'
+import { useState } from 'react';
 
 const Navbar = (props) => {
 
@@ -9,34 +8,26 @@ const Navbar = (props) => {
     const [state, setState] = useState({
         search:""
     })
-    
-    useEffect(() => {
-        props.setSearch(state.search);
-    }, [state])
 
     const onChange = (event) => {
         setState({[event.target.name]: event.target.value})
     }
 
-    const [visible, setVisible] = useState(false)
+    const onClick = (event) => {
+        event.preventDefault();
+        props.searchProducts(state.search);
+    }
+
+    /* const [visible, setVisible] = useState(false) */
     
     //CNavbar: "sticky-top" pitää Navbarin aina näkyvillä.
 
     return (
-    <CNavbar expand="lg" className="bg-success"  placement="sticky-top"> 
+    <CNavbar expand="lg" colorScheme='light' style={{ backgroundColor:'#6d1313'}}  placement="sticky-top"> 
     <CContainer fluid>
-        <CHeaderBrand href="/" color="">
+        <CHeaderBrand href="/" style={{color:"white"}}>
             Verkkokauppa
         </CHeaderBrand>
-        
-        <CDropdown variant="nav-item">
-            <CDropdownToggle color="secondary" >Kategoriat</CDropdownToggle>
-            <CDropdownMenu>
-                <CDropdownItem href="paidat">paidat</CDropdownItem>
-                <CDropdownItem href="housut">housut</CDropdownItem>
-                <CDropdownItem href="lakit">lakit</CDropdownItem>
-            </CDropdownMenu>
-        </CDropdown>
     </CContainer>
 
     <CContainer fluid>
@@ -48,6 +39,9 @@ const Navbar = (props) => {
                     placeholder='Hae tuotetta'
                     onChange={onChange}
                     value={state.search} />
+            <CButton type="submit" color="success" onClick={onClick} style={{marginLeft:"10px"}} variant="outline">
+                Hae
+            </CButton>
         </CForm>
         </CContainer>
     </CNavbar>

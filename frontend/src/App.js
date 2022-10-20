@@ -1,29 +1,23 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import SearchPage from './components/SearchPage';
+import ProductList from './components/ProductList';
 import Navbar from './components/Navbar';
 import ProductPage from './components/ProductPage';
 
 function App() {
 
   const [state, setState] = useState({
-    search:"",
     products:[],
-    loading:false
+    loading:false,
+    error:""
   })
 
   const [urlRequest, setUrlRequest] = useState({
-    url:"/api/verkkokauppa",
-    request:{
-      method:"GET",
-      headers:{"Content-Type":"application/json"}
-    },
-    action:"getdata"
+    url:"",
+    request:{},
+    action:""
   })
-
-
-
 
   // UseEffect -> hakee datan url-actionin perusteella
   useEffect(() => {
@@ -47,12 +41,10 @@ function App() {
           case "getdata":
             let data = await response.json();
             if (data) {
-              setState((state) => {
-                return {
-                  ...state,
-                  loading:false,
-                  products:data
-                }
+              setState({
+                error:"",
+                loading:false,
+                products:data
               });
             }
             return;
@@ -62,7 +54,14 @@ function App() {
       } else {
         switch(urlRequest.action) {
           case "getdata":
-            console.log(`Server responded with a status ${response.status}`);
+            setState((state) => {
+              return {
+                products:[],
+                loading: false,
+                error:"Kyseisellä haulla ei löytynyt yhtään tuotetta"
+              }
+            })
+            console.log(`Server responded with a status ${response.status}: ${response.statusText}`);
             return;
           default:
             return;
@@ -74,29 +73,35 @@ function App() {
 
   }, [urlRequest]);
 
-  const setSearch = (search) => {
-    setState((state) => {
-        return {
-            ...state,
-            search:search
-        }      
-    });
-  }
 
+  
+  // Url request actions
+  const searchProducts = (search) => {
+    let searchUrl = `?search=${search}`
+    setUrlRequest({
+      url:`/api/verkkokauppa/${searchUrl}`,
+      request:{
+        method:"GET",
+        headers:{"Content-Type":"application/json"}
+      },
+      action:"getdata"
+    })
+  }
+  
   //Renderöi tuotteet vasta kun data on haettu
   let tempRender = <></>
   if (state.loading) {
     tempRender = <h3>Tuotteita ladataan...</h3>
   } else {
     tempRender = <Routes>
-                    <Route exact path="/" element={<SearchPage products={state.products} search={state.search}/>}/>
+                    <Route exact path="/" element={<ProductList products={state.products} error={state.error}/>}/>
                     <Route path="/:productId" element={<ProductPage products={state.products}/>}/>
                   </Routes>
   }
 
   return (
     <div>
-      <Navbar setSearch={setSearch}/>
+      <Navbar searchProducts={searchProducts}/>
       {tempRender}
     </div>
   );
