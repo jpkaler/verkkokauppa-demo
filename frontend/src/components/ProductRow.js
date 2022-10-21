@@ -13,7 +13,8 @@ const ProductRow = (props) => {
     if (props.admin) {
         adminRender = (
             <>
-                <td><CButton color="success" style={{padding:"1px 6px", margin:"2px 4px"}}>Edit</CButton></td>
+                <td><CButton color="success" style={{padding:"1px 6px", margin:"2px 4px"}}
+                    onClick={() => props.changeMode("edit", props.ID)}>Edit</CButton></td>
                 <td><CButton color="danger" style={{padding:"1px 6px", margin:"2px 4px"}} 
                     onClick={() => props.changeMode("remove", props.ID)}>Remove</CButton></td>
             </>

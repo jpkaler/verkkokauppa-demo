@@ -63,6 +63,9 @@ function App() {
           case "removeproduct":
             searchProducts("");
             return;
+          case "editproduct":
+            searchProducts("");
+            return;
           default:
             return;
         }
@@ -125,6 +128,18 @@ function App() {
       action:"removeproduct"
     })
   }
+
+  const editProduct = (productId, product) => {
+    setUrlRequest({
+      url:`/api/verkkokauppa/${productId}`,
+      request:{
+        method:"PUT",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify(product)
+      },
+      action:"editproduct"
+    })
+  }
   
   //Renderöi tuotteet vasta kun data on haettu
   let tempRender = <></>
@@ -133,7 +148,7 @@ function App() {
   } else {
     tempRender = <Routes>
                     <Route exact path="/" element={<ProductList products={state.products} error={state.error}/>}/>
-                    <Route path="/admin" element={<AdminPage products={state.products} addProduct={addProduct} removeProduct={removeProduct}/>}/>
+                    <Route path="/admin" element={<AdminPage products={state.products} addProduct={addProduct} removeProduct={removeProduct} editProduct={editProduct}/>}/>
                     <Route path="/:productId" element={<ProductPage products={state.products}/>}/>
                   </Routes>
   }

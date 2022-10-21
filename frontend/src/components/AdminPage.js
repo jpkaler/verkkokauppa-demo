@@ -1,6 +1,7 @@
 import ProductRow from "./ProductRow";
 import AddProductRow from "./AddProductRow";
 import RemoveProductRow from "./RemoveProductRow";
+import EditProductRow from "./EditProductRow";
 import { useState } from 'react';
 
 const AdminPage = (props) => {
@@ -12,10 +13,15 @@ const AdminPage = (props) => {
 
     const changeMode = (mode, id) => {
         if (mode === "remove") {
-            console.log("Changemode funktiossa")
             setState({
                 removeId: id,
                 editId: -1
+            })
+        }
+        if (mode === "edit") {
+            setState({
+                removeId: -1,
+                editId: id
             })
         }
         if (mode === "cancel") {
@@ -31,9 +37,17 @@ const AdminPage = (props) => {
         changeMode("cancel");
     }
 
+    const editProduct = (productId, product) => {
+        props.editProduct(productId, product);
+        changeMode("cancel");
+    }
+
     let products =  props.products.map((product) => {
         if (state.removeId === product.ID) {
             return <RemoveProductRow key={product.ID} product={product} removeProduct={removeProduct} changeMode={changeMode} />
+        }
+        if (state.editId === product.ID) {
+            return <EditProductRow key={product.ID} product={product} editProduct={editProduct} changeMode={changeMode} />
         }
         
         return <ProductRow key={product.ID} ID={product.ID} name={product.name} price={product.price} category={product.category} changeMode={changeMode} admin={true}/>
