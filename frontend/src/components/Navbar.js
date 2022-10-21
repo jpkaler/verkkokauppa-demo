@@ -15,7 +15,7 @@ const Navbar = (props) => {
 
     const onClick = (event) => {
         event.preventDefault();
-        props.searchProducts(state.search);
+        props.searchProducts(state.search.trim());
     }
 
     /* const [visible, setVisible] = useState(false) */
