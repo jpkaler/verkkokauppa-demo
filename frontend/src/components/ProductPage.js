@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { CRow, CImage, CCol, CHeader } from '@coreui/react';
 
 const ProductPage = (props) => {
     
@@ -24,14 +25,36 @@ const ProductPage = (props) => {
     }, [productId])
     
 
+
     return (
         <div>
-            <h3>Tuote </h3>
-            <p>Tuotteen id: {state.product.ID}</p>
-            <p>Tuotteen nimi: {state.product.name}</p>
-            <p>Tuotteen hinta: {state.product.price}</p>
-            <p>Tuotteen kategoria: {state.product.category}</p>
+            <CRow>
+                ""
+            </CRow>
+
+            <CRow> 
+
+            <CCol>
+            </CCol>
+
+            <CCol>
+            <CImage align="center" fluid src="/placeholder-large.jpg" />
+            </CCol>
+            
+            <CCol md={8}>
+                <CHeader>
+                    <h2>{state.product.name}</h2>
+                </CHeader>
+            <h6>{state.product.category}</h6>
+            <h4>{state.product.price} €</h4>
+            <h6>{state.product.info}</h6>
+           
+            
             <p><Link to="/">Etusivulle</Link></p>
+
+
+            </CCol>
+            </CRow>
         </div>
     )
 };

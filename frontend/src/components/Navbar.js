@@ -1,5 +1,5 @@
 import { CNav, CNavbar, CHeaderBrand, CForm, CFormInput, CButton, CNavbarBrand, CNavItem, CNavLink, CContainer, 
-            CDropdown, CDropdownMenu, CDropdownItem, CDropdownToggle } from '@coreui/react'
+            CDropdown, CDropdownMenu, CDropdownItem, CDropdownToggle, CImage, CRow, CCol } from '@coreui/react'
 import { useState, useEffect } from 'react';
 
 const Navbar = (props) => {
@@ -26,20 +26,31 @@ const Navbar = (props) => {
     <CNavbar expand="lg" className="bg-success"  placement="sticky-top"> 
     <CContainer fluid>
         <CHeaderBrand href="/" color="">
-            Verkkokauppa
+        <CRow>
+            <CCol sm>
+                <CImage fluid src="/icon-small.png" />
+            </CCol>
+
+            <CCol>
+                <h2>Verkkokauppa</h2>
+
+                <CDropdown variant="nav-item">
+                    <CDropdownToggle  color="secondary">Kategoriat</CDropdownToggle>
+                     <CDropdownMenu>
+                        <CDropdownItem href="paidat">paidat</CDropdownItem>
+                        <CDropdownItem href="housut">housut</CDropdownItem>
+                        <CDropdownItem href="lakit">lakit</CDropdownItem>
+                    </CDropdownMenu>
+                </CDropdown>
+                
+            </CCol>
+        </CRow>
         </CHeaderBrand>
         
-        <CDropdown variant="nav-item">
-            <CDropdownToggle color="secondary" >Kategoriat</CDropdownToggle>
-            <CDropdownMenu>
-                <CDropdownItem href="paidat">paidat</CDropdownItem>
-                <CDropdownItem href="housut">housut</CDropdownItem>
-                <CDropdownItem href="lakit">lakit</CDropdownItem>
-            </CDropdownMenu>
-        </CDropdown>
+        
     </CContainer>
 
-    <CContainer fluid>
+    <CContainer fluid align="end">
         <CForm className="d-flex justify-content-e" >
         
             <CFormInput type="text"

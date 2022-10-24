@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import ProductList from "./ProductList";
+import { CContainer, CRow, CCol } from '@coreui/react';
 
 const SearchPage = (props) => {
 
@@ -22,9 +23,15 @@ const SearchPage = (props) => {
     }, [props.search])
 
     return (
-        <div>
+        <CContainer>
+        <CRow>
+
+        <CCol md="auto">
             <ProductList products={state.products} />
-        </div>
+        </CCol>
+
+        </CRow>
+        </CContainer>
     )
 }
 
