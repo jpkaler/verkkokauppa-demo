@@ -1,4 +1,4 @@
-import { CNavbar, CHeaderBrand, CForm, CFormInput, CContainer, 
+import { CNavbar, CHeaderBrand, CForm, CFormInput, CContainer, CButton, 
             CDropdown, CDropdownMenu, CDropdownItem, CDropdownToggle, CImage, CRow, CCol } from '@coreui/react'
 import { useState } from 'react';
 
@@ -60,6 +60,9 @@ const Navbar = (props) => {
                     placeholder='Hae tuotetta'
                     onChange={onChange}
                     value={state.search} />
+            <CButton type="submit" color="primary" onClick={onClick} style={{marginLeft:"10px"}} variant="outline">
+                Hae
+            </CButton>
         </CForm>
         </CContainer>
     </CNavbar>
