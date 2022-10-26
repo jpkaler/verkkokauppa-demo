@@ -5,10 +5,13 @@ const DOWN_ARROW = '&#8595;';
  */
 const ProductList = (props) => {
 
+
     // Muokkaa products-listan Product-komponenteiksi
-    let products =  props.products.map((product) => {
+    let products = props.products.map((product) => {
         return <ProductRow key={product.ID} ID={product.ID} name={product.name} price={product.price} category={product.category}/>
     })
+
+    
   
     return (
         <table>

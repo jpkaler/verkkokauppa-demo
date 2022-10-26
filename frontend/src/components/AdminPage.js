@@ -1,7 +1,7 @@
 import ProductRow from "./ProductRow";
-import AddProductRow from "./AddProductRow";
-import RemoveProductRow from "./RemoveProductRow";
-import EditProductRow from "./EditProductRow";
+import AddProductRow from "./adminpage/AddProductRow";
+import RemoveProductRow from "./adminpage/RemoveProductRow";
+import EditProductRow from "./adminpage/EditProductRow";
 import { useState } from 'react';
 
 const AdminPage = (props) => {

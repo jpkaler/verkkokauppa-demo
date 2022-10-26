@@ -1,17 +1,18 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import ProductList from './components/ProductList';
 import Navbar from './components/Navbar';
 import ProductPage from './components/ProductPage';
 import AdminPage from './components/AdminPage';
+import HomePage from './components/HomePage';
 
 function App() {
 
   const [state, setState] = useState({
     products:[],
     loading:false,
-    error:""
+    error:"",
+    categories:[]
   })
 
   const [urlRequest, setUrlRequest] = useState({
@@ -26,6 +27,15 @@ function App() {
         ...state,
         loading:loading,
         error:""
+      }
+    })
+  }
+
+  const setCategories = (categories) => {
+    setState((state) => {
+      return {
+        ...state,
+        categories: categories
       }
     })
   }
@@ -147,9 +157,10 @@ function App() {
     tempRender = <h3>Tuotteita ladataan...</h3>
   } else {
     tempRender = <Routes>
-                    <Route exact path="/" element={<ProductList products={state.products} error={state.error}/>}/>
+                    <Route exact path="/" element={<HomePage products={state.products} error={state.error} searchProducts={searchProducts} setCategories={setCategories} categories={state.categories}/>}/>
                     <Route path="/admin" element={<AdminPage products={state.products} addProduct={addProduct} removeProduct={removeProduct} editProduct={editProduct}/>}/>
-                    <Route path="/:productId" element={<ProductPage products={state.products}/>}/>
+                    <Route path="/:category" element={<CategoryPage />}/>
+                    <Route path="/:category/:productId" element={<ProductPage products={state.products}/>}/>
                   </Routes>
   }
 
