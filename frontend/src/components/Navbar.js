@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { CNavbar, CHeaderBrand, CForm, CFormInput, CContainer, CButton, 
             CDropdown, CDropdownMenu, CDropdownItem, CDropdownToggle, CImage, CRow, CCol } from '@coreui/react'
 import { useState } from 'react';
@@ -61,10 +62,17 @@ const Navbar = (props) => {
                     onChange={onChange}
                     value={state.search} />
             <CButton type="submit" color="primary" onClick={onClick} style={{marginLeft:"10px"}} variant="outline">
+                <Link to="/">
                 Hae
+                </Link>
             </CButton>
+
         </CForm>
+
+        <p><Link to="/cart">Ostoskori</Link></p>
+        
         </CContainer>
+    
     </CNavbar>
     )
 }

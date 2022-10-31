@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { CRow, CImage, CCol, CHeader } from '@coreui/react';
+import { CRow, CImage, CCol, CHeader, CButton } from '@coreui/react';
 
 const ProductPage = (props) => {
     
@@ -24,7 +24,10 @@ const ProductPage = (props) => {
         }
     }, [productId])
     
-
+    const onClick = (event) => {
+        event.preventDefault();
+        props.addToCart(state.product)
+    }
 
     return (
         <div>
@@ -33,10 +36,8 @@ const ProductPage = (props) => {
             </CRow>
 
             <CRow> 
-
             <CCol>
             </CCol>
-
             <CCol>
             <CImage align="center" fluid src="/placeholder-large.jpg" />
             </CCol>
@@ -49,7 +50,7 @@ const ProductPage = (props) => {
             <h4>{state.product.price} €</h4>
             <h6>{state.product.info}</h6>
            
-            
+            <CButton type="submit" color="secondary" onClick={onClick}>Lisää ostoskoriin</CButton>
             <p><Link to="/">Etusivulle</Link></p>
 
 

@@ -5,13 +5,15 @@ import ProductList from './components/ProductList';
 import Navbar from './components/Navbar';
 import ProductPage from './components/ProductPage';
 import AdminPage from './components/AdminPage';
+import ShoppingCart from './components/ShoppingCart';
 
 function App() {
 
   const [state, setState] = useState({
     products:[],
     loading:false,
-    error:""
+    error:"",
+    cart:[]
   })
 
   const [urlRequest, setUrlRequest] = useState({
@@ -29,6 +31,35 @@ function App() {
       }
     })
   }
+
+  const setCart = (cart) => {
+    setState((state) => {
+      return {
+        ...state,
+        cart:cart
+      }
+    }) 
+  }
+
+  const addToCart = (product) => {
+    setState((state) => {
+      return {
+        ...state,
+        cart:[...state.cart,product]       // ...state.cart säilyttää vanhan listan, product lisää uuden
+      }
+    })
+  }
+
+  const removeFromCart = (productID) => {
+    let tempCart = state.cart.filter((product)=>product.ID!==productID)
+    setState((state) => {
+      return {
+        ...state,
+        cart:tempCart
+      }
+    })
+  }
+
 
   // UseEffect -> hakee datan url-actionin perusteella
   useEffect(() => {
@@ -148,8 +179,9 @@ function App() {
   } else {
     tempRender = <Routes>
                     <Route exact path="/" element={<ProductList products={state.products} error={state.error}/>}/>
+                    <Route path="/cart" element={<ShoppingCart cart={state.cart} setCart={setCart} removeFromCart={removeFromCart} />}/>
                     <Route path="/admin" element={<AdminPage products={state.products} addProduct={addProduct} removeProduct={removeProduct} editProduct={editProduct}/>}/>
-                    <Route path="/:productId" element={<ProductPage products={state.products}/>}/>
+                    <Route path="/:productId" element={<ProductPage products={state.products} addToCart={addToCart}/>}/>
                   </Routes>
   }
 

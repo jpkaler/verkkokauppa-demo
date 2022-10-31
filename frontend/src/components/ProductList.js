@@ -1,4 +1,6 @@
 import ProductRow from './ProductRow';
+
+
 /* 
 const UP_ARROW = '&#8593;';
 const DOWN_ARROW = '&#8595;';
