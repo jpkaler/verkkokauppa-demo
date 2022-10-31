@@ -1,11 +1,11 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import ProductList from './components/ProductList';
 import Navbar from './components/Navbar';
 import ProductPage from './components/ProductPage';
 import AdminPage from './components/AdminPage';
 import ShoppingCart from './components/ShoppingCart';
+import HomePage from './components/HomePage';
 
 function App() {
 
@@ -13,7 +13,8 @@ function App() {
     products:[],
     loading:false,
     error:"",
-    cart:[]
+    cart:[],
+    categories:[]
   })
 
   const [urlRequest, setUrlRequest] = useState({
@@ -45,7 +46,15 @@ function App() {
     setState((state) => {
       return {
         ...state,
-        cart:[...state.cart,product]       // ...state.cart säilyttää vanhan listan, product lisää uuden
+        cart:[...state.cart,product]     
+      }
+    }) 
+  }
+  const setCategories = (categories) => {
+    setState((state) => {
+      return {
+        ...state,
+        categories: categories
       }
     })
   }
@@ -178,10 +187,11 @@ function App() {
     tempRender = <h3>Tuotteita ladataan...</h3>
   } else {
     tempRender = <Routes>
-                    <Route exact path="/" element={<ProductList products={state.products} error={state.error}/>}/>
+                    <Route exact path="/" element={<HomePage products={state.products} error={state.error} searchProducts={searchProducts} setCategories={setCategories} categories={state.categories}/>}/>
                     <Route path="/cart" element={<ShoppingCart cart={state.cart} setCart={setCart} removeFromCart={removeFromCart} />}/>
                     <Route path="/admin" element={<AdminPage products={state.products} addProduct={addProduct} removeProduct={removeProduct} editProduct={editProduct}/>}/>
-                    <Route path="/:productId" element={<ProductPage products={state.products} addToCart={addToCart}/>}/>
+                    <Route path="/:category" element={<CategoryPage />}/>
+                    <Route path="/:category/:productId" element={<ProductPage products={state.products}/>}/>
                   </Routes>
   }
 

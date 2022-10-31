@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { CNavbar, CHeaderBrand, CForm, CFormInput, CContainer, CButton, 
-            CDropdown, CDropdownMenu, CDropdownItem, CDropdownToggle, CImage, CRow, CCol } from '@coreui/react'
+import { CNavbar, CHeaderBrand, CForm, CFormInput, CContainer, CButton, CImage, CRow, CCol } from '@coreui/react'
 import { useState } from 'react';
 
 const Navbar = (props) => {
@@ -27,25 +26,10 @@ const Navbar = (props) => {
     <CContainer fluid>
         <CHeaderBrand href="/" color="">
         <CRow>
-            <CCol sm>
-                <CImage fluid src="/icon-small.png" />
+            <CCol sm >
+                <CImage style={{height:"2.5em"}} fluid src="/icon-small.png" />
             </CCol>
 
-            <CCol>
-                <CHeaderBrand href="/" style={{color:"white"}}>
-                    Verkkokauppa
-                </CHeaderBrand>
-
-                <CDropdown variant="nav-item">
-                    <CDropdownToggle  color="secondary">Kategoriat</CDropdownToggle>
-                     <CDropdownMenu>
-                        <CDropdownItem href="paidat">paidat</CDropdownItem>
-                        <CDropdownItem href="housut">housut</CDropdownItem>
-                        <CDropdownItem href="lakit">lakit</CDropdownItem>
-                    </CDropdownMenu>
-                </CDropdown>
-                
-            </CCol>
         </CRow>
         </CHeaderBrand>
         
