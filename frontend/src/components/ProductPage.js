@@ -27,6 +27,7 @@ const ProductPage = (props) => {
     const onClick = (event) => {
         event.preventDefault();
         props.addToCart(state.product)
+        console.log("")
     }
 
     return (
