@@ -33,6 +33,7 @@ const AddProductRow = (props) => {
         let product = {
             ...state
         }
+        console.log("Ollaanko täällä? ADD PRODUCT ROW");
         props.addProduct(product);
         setState({
             name:"",

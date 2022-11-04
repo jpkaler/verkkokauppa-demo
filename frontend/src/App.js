@@ -6,6 +6,7 @@ import ProductPage from './components/ProductPage';
 import AdminPage from './components/AdminPage';
 import ShoppingCart from './components/ShoppingCart';
 import HomePage from './components/HomePage';
+import CategoryPage from './components/CategoryPage';
 
 function App() {
 
@@ -14,13 +15,17 @@ function App() {
     loading:false,
     error:"",
     cart:[],
-    categories:[]
+    categories:[],
+    currentCategory:""
   })
 
   const [urlRequest, setUrlRequest] = useState({
-    url:"",
-    request:{},
-    action:""
+    url:"/api/verkkokauppa/categories",
+      request:{
+        method:"GET",
+        headers:{"Content-Type":"application/json"}
+      },
+      action:"getcategories"
   })
 
   const setLoading = (loading) => {
@@ -50,13 +55,14 @@ function App() {
       }
     }) 
   }
-  const setCategories = (categories) => {
-    setState((state) => {
-      return {
-        ...state,
-        categories: categories
-      }
-    })
+  
+  const setCurrentCategory = (category) => {
+	setState((state) => {
+		return {
+			...state,
+			currentCategory: category
+		}
+	})
   }
 
   const removeFromCart = (productID) => {
@@ -72,6 +78,7 @@ function App() {
 
   // UseEffect -> hakee datan url-actionin perusteella
   useEffect(() => {
+    console.log(`Urlrequest: ${urlRequest.action}`);
 
     const fetchData = async () => {
 
@@ -88,6 +95,7 @@ function App() {
         switch(urlRequest.action) {
           case "getdata":
             let data = await response.json();
+            console.log("Kaikki haettu");
             if (data) {
               setState((state) => {
                 return {
@@ -96,6 +104,25 @@ function App() {
                 }
               });
             }
+            return;
+          case "getcategories":
+            let categories = await response.json();
+            setState((state) => {
+              return {
+                ...state,
+                categories: categories
+              }
+            })
+            return;
+          case "getproductsbycategory":
+            let products = await response.json();
+            console.log("Paidat haettu");
+            setState((state) => {
+              return {
+                ...state,
+                products: products
+              }
+            })
             return;
           case "addproduct":
             searchProducts("");
@@ -114,6 +141,7 @@ function App() {
           case "getdata":
             setState((state) => {
               return {
+                ...state,
                 products:[],
                 loading: false,
                 error:"Kyseisellä haulla ei löytynyt yhtään tuotetta"
@@ -131,7 +159,12 @@ function App() {
 
   }, [urlRequest]);
 
-
+  useEffect(() => {
+    console.log("Current category muuttui");
+    if (state.currentCategory !== "") {
+      getProductsByCategory(state.currentCategory);
+    }
+  }, [state.currentCategory])
   
   // Url request actions
   const searchProducts = (search) => {
@@ -143,6 +176,28 @@ function App() {
         headers:{"Content-Type":"application/json"}
       },
       action:"getdata"
+    })
+  }
+
+  const getCategories = () => {
+    setUrlRequest({
+      url:"/api/verkkokauppa/categories",
+      request:{
+        method:"GET",
+        headers:{"Content-Type":"application/json"}
+      },
+      action:"getcategories"
+    })
+  }
+
+  const getProductsByCategory = (category) => {
+    setUrlRequest({
+      url:`/api/verkkokauppa/categories/${category}`,
+      request:{
+        method:"GET",
+        headers:{"Content-Type":"application/json"}
+      },
+      action:"getproductsbycategory"
     })
   }
 
@@ -187,11 +242,11 @@ function App() {
     tempRender = <h3>Tuotteita ladataan...</h3>
   } else {
     tempRender = <Routes>
-                    <Route exact path="/" element={<HomePage products={state.products} error={state.error} searchProducts={searchProducts} setCategories={setCategories} categories={state.categories}/>}/>
+                    <Route exact path="/" element={<HomePage products={state.products} error={state.error} categories={state.categories} setCurrentCategory={setCurrentCategory}/>}/>
                     <Route path="/cart" element={<ShoppingCart cart={state.cart} setCart={setCart} removeFromCart={removeFromCart} />}/>
                     <Route path="/admin" element={<AdminPage products={state.products} addProduct={addProduct} removeProduct={removeProduct} editProduct={editProduct}/>}/>
-                    <Route path="/:category" element={<CategoryPage />}/>
-                    <Route path="/:category/:productId" element={<ProductPage products={state.products}/>}/>
+                    <Route path="/:category" element={<CategoryPage categories={state.categories} products={state.products} setCurrentCategory={setCurrentCategory}/>}/>
+                    <Route path="/:category/:productId" element={<ProductPage products={state.products} addToCart={addToCart}/>}/>
                   </Routes>
   }
 

@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CNavbar, CHeaderBrand, CForm, CFormInput, CContainer, CButton, CImage, CRow, CCol } from '@coreui/react'
 import { useState } from 'react';
 
 const Navbar = (props) => {
 
-
+    let navigate = useNavigate();
     // Hakukentän toiminnallisuus
     const [state, setState] = useState({
         search:""
@@ -17,6 +17,7 @@ const Navbar = (props) => {
     const onClick = (event) => {
         event.preventDefault();
         props.searchProducts(state.search.trim());
+        navigate("/");
     }
     
     //CNavbar: "sticky-top" pitää Navbarin aina näkyvillä.

@@ -20,7 +20,7 @@ const ProductRow = (props) => {
             </>
         )
     } else {
-        linkRender = <td><Link to={`/${props.ID}`}>Tuotesivulle</Link></td>
+        linkRender = <td><Link to={`/${props.category}/${props.ID}`}>Tuotesivulle</Link></td>
     }
 
     return (

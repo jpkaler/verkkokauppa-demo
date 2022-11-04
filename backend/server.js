@@ -30,10 +30,27 @@ app.get("/api/verkkokauppa/", (req,res) => {
     }
 });
 
+//GET -> kaikki kategoriat tietokannasta
+app.get("/api/verkkokauppa/categories", (req,res) => {
+    db.all('SELECT DISTINCT category FROM products',
+        (err, rows) => {
+            return res.status(200).json(rows);
+        })
+})
+
+//GET -> kaikki yhden kategorian tuotteet
+app.get("/api/verkkokauppa/categories/:category", (req, res) => {
+    db.all('SELECT * FROM products WHERE category=$category',
+        {
+            $category: req.params.category
+        }, (err, rows) => {
+            return res.status(200).json(rows);
+        })
+})
+
 // GET -> yksi tuote tietokannasta
 app.get("/api/verkkokauppa/:productId", (req, res) => {
     
-
     db.get('SELECT * FROM products WHERE ID=$productId', // Käytetään SQL:ää tuotteen löytämiseksi
 
         {
@@ -47,6 +64,7 @@ app.get("/api/verkkokauppa/:productId", (req, res) => {
         })
 })
 
+
 // POST -> luo uusi tuote tietokantaan
 app.post("/api/verkkokauppa", (req,res) => {
     db.run('INSERT INTO products (name, price, category) VALUES ($name, $price, $category)', {
@@ -55,7 +73,6 @@ app.post("/api/verkkokauppa", (req,res) => {
         $category: req.body.category
     }, (err) => {
         if (err) {
-            console.log(err.message);
             res.status(409).json({message: "Invalid product values"});
         } else {
             res.status(201).json({message: "New product added to the database"});
