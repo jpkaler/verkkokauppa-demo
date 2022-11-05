@@ -25,10 +25,10 @@ const Navbar = (props) => {
     return (
     <CNavbar expand="lg" className="bg-success"  placement="sticky-top"> 
     <CContainer fluid>
-        <CHeaderBrand href="/" color="">
+        <CHeaderBrand color="">
         <CRow>
             <CCol sm >
-                <CImage style={{height:"2.5em"}} fluid src="/icon-small.png" />
+                <Link to="/"><CImage style={{height:"2.5em"}} fluid src="/icon-small.png" /></Link>
             </CCol>
 
         </CRow>
