@@ -46,35 +46,15 @@ function App() {
       }
     }) 
   }
-
-  const addToCart = (product) => {
-    setState((state) => {
-      return {
-        ...state,
-        cart:[...state.cart,product]     
-      }
-    }) 
-  }
   
   const setCurrentCategory = (category) => {
-	setState((state) => {
-		return {
-			...state,
-			currentCategory: category
-		}
-	})
-  }
-
-  const removeFromCart = (productID) => {
-    let tempCart = state.cart.filter((product)=>product.ID!==productID)
     setState((state) => {
       return {
         ...state,
-        cart:tempCart
+        currentCategory: category
       }
     })
   }
-
 
   // UseEffect -> hakee datan url-actionin perusteella
   useEffect(() => {
@@ -243,10 +223,10 @@ function App() {
   } else {
     tempRender = <Routes>
                     <Route exact path="/" element={<HomePage products={state.products} error={state.error} categories={state.categories} setCurrentCategory={setCurrentCategory}/>}/>
-                    <Route path="/cart" element={<ShoppingCart cart={state.cart} setCart={setCart} removeFromCart={removeFromCart} />}/>
+                    <Route path="/cart" element={<ShoppingCart cart={state.cart} setCart={setCart} />}/>
                     <Route path="/admin" element={<AdminPage products={state.products} addProduct={addProduct} removeProduct={removeProduct} editProduct={editProduct}/>}/>
                     <Route path="/:category" element={<CategoryPage categories={state.categories} products={state.products} setCurrentCategory={setCurrentCategory}/>}/>
-                    <Route path="/:category/:productId" element={<ProductPage products={state.products} addToCart={addToCart}/>}/>
+                    <Route path="/:category/:productId" element={<ProductPage products={state.products} cart={state.cart} setCart={setCart}/>}/>
                   </Routes>
   }
 

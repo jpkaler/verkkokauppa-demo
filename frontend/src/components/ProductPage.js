@@ -22,11 +22,21 @@ const ProductPage = (props) => {
             console.log("tempProduct:",tempProduct);
             setState({product: tempProduct});
         }
-    }, [productId])
+    }, [productId]);
     
     const onClick = (event) => {
-        event.preventDefault();
-        props.addToCart(state.product)
+        let tempCart = [...props.cart];
+        // Jos tuote on jo korissa, splice -> lisää määrään yhden
+        for (const product of tempCart) {
+            if (product.ID === state.product.ID) {
+                product.quantity++;
+                props.setCart(tempCart);
+                return;        
+            }
+        }
+
+        tempCart.push({...state.product, quantity: 1});
+        props.setCart(tempCart);
     }
 
     return (
@@ -50,7 +60,7 @@ const ProductPage = (props) => {
             <h4>{state.product.price} €</h4>
             <h6>{state.product.info}</h6>
            
-            <CButton type="submit" color="secondary" onClick={onClick}>Lisää ostoskoriin</CButton>
+            <CButton color="secondary" onClick={onClick}>Lisää ostoskoriin</CButton>
             <p><Link to="/">Etusivulle</Link></p>
 
 
