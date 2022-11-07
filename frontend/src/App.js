@@ -225,7 +225,7 @@ function App() {
                     <Route exact path="/" element={<HomePage products={state.products} error={state.error} categories={state.categories} setCurrentCategory={setCurrentCategory}/>}/>
                     <Route path="/cart" element={<ShoppingCart cart={state.cart} setCart={setCart} />}/>
                     <Route path="/admin" element={<AdminPage products={state.products} addProduct={addProduct} removeProduct={removeProduct} editProduct={editProduct}/>}/>
-                    <Route path="/:category" element={<CategoryPage categories={state.categories} products={state.products} setCurrentCategory={setCurrentCategory}/>}/>
+                    <Route path="/:category" element={<CategoryPage categories={state.categories} products={state.products} setCurrentCategory={setCurrentCategory} setCart={setCart} cart={state.cart}/>}/>
                     <Route path="/:category/:productId" element={<ProductPage products={state.products} cart={state.cart} setCart={setCart}/>}/>
                   </Routes>
   }

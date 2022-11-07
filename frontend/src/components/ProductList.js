@@ -10,7 +10,7 @@ const ProductList = (props) => {
 
     // Muokkaa products-listan Product-komponenteiksi
     let products = props.products.map((product) => {
-        return <ProductRow key={product.ID} ID={product.ID} name={product.name} price={product.price} category={product.category}/>
+        return <ProductRow key={product.ID} product={product} setCart={props.setCart} cart={props.cart} />
     })
 
     
@@ -19,9 +19,8 @@ const ProductList = (props) => {
         <table>
             <thead>
                 <tr>
-                    <th><button id="name" name="name">Nimi</button></th>
-                    <th><button id="price" name="price">Hinta</button></th>
-                    <th><button id="category" name="category">Kategoria</button></th>
+                    <th>Nimi</th>
+                    <th>Hinta</th>
                 </tr>
             </thead>
             <tbody>

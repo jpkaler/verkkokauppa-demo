@@ -3,7 +3,21 @@ import { Link } from 'react-router-dom';
 
 const ProductRow = (props) => {
 
-    // Napin painalluksesta rivin pitäisi muuttua joko muokattavaksi tai poistettavaksi
+    // onClick ostoskoriin lisäämiseksi
+    const onClick = (event) => {
+        let tempCart = [...props.cart];
+        // Jos tuote on jo korissa, splice -> lisää määrään yhden
+        for (const product of tempCart) {
+            if (product.ID === props.product.ID) {
+                product.quantity++;
+                props.setCart(tempCart);
+                return;        
+            }
+        }
+
+        tempCart.push({...props.product, quantity: 1});
+        props.setCart(tempCart);
+    }
 
     // Button rendering for admin page
     let adminRender = <></>
@@ -20,14 +34,14 @@ const ProductRow = (props) => {
             </>
         )
     } else {
-        linkRender = <td><Link to={`/${props.category}/${props.ID}`}>Tuotesivulle</Link></td>
+        linkRender = <td><Link to={`/${props.product.category}/${props.product.ID}`}>Tuotesivulle</Link></td>
     }
 
     return (
         <tr>
-            <td>{props.name}</td>
-            <td>{props.price}</td>
-            <td>{props.category}</td>
+            <td>{props.product.name}</td>
+            <td>{props.product.price}€</td>
+            <td><CButton onClick={onClick} name="addproduct" id="addproduct" color="secondary">Lisää ostoskoriin</CButton></td>
             {linkRender}
             {adminRender}
         </tr>
