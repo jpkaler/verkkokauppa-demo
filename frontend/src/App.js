@@ -7,6 +7,7 @@ import AdminPage from './components/AdminPage';
 import ShoppingCart from './components/ShoppingCart';
 import HomePage from './components/HomePage';
 import CategoryPage from './components/CategoryPage';
+import SearchPage from './components/SearchPage';
 
 function App() {
 
@@ -232,10 +233,11 @@ function App() {
   } else {
     tempRender = <Routes>
                     <Route exact path="/" element={<HomePage products={state.products} error={state.error} categories={state.categories} setCurrentCategory={setCurrentCategory} setHomePageState={setHomePageState}/>}/>
+                    <Route path="/search" element = {<SearchPage products={state.products} categories={state.categories} setCurrentCategory={setCurrentCategory} setCart={setCart} cart={state.cart}/>} />
                     <Route path="/cart" element={<ShoppingCart cart={state.cart} setCart={setCart} />}/>
                     <Route path="/admin" element={<AdminPage products={state.products} addProduct={addProduct} removeProduct={removeProduct} editProduct={editProduct}/>}/>
                     <Route path="/:category" element={<CategoryPage categories={state.categories} products={state.products} setCurrentCategory={setCurrentCategory} setCart={setCart} cart={state.cart}/>}/>
-                    <Route path="/:category/:productId" element={<ProductPage products={state.products} cart={state.cart} setCart={setCart}/>}/>
+                    <Route path="/:category/:productId" element={<ProductPage products={state.products} cart={state.cart} setCart={setCart} currentCategory={state.currentCategory}/>}/>
                   </Routes>
   }
 

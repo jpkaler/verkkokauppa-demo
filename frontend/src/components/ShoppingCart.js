@@ -1,6 +1,5 @@
 import ShoppingCartRow from "./ShoppingCartRow";
-import ProductRow from "./ProductRow";
-import { CRow, CCol, CButton, CTable, CTableHead, CTableBody, CTableHeaderCell } from '@coreui/react';
+import { CRow, CCol, CButton, CTable, CTableHead, CTableBody, CTableHeaderCell, CTableRow } from '@coreui/react';
 
 const ShoppingCart = (props) => {
 
@@ -14,9 +13,11 @@ const ShoppingCart = (props) => {
     return (  
       <CTable>
         <CTableHead>
-          <CTableHeaderCell scope="col">Nimi</CTableHeaderCell>
-          <CTableHeaderCell scope="col">Hinta</CTableHeaderCell>
-          <CTableHeaderCell scope="col">Määrä</CTableHeaderCell>
+          <CTableRow>
+            <CTableHeaderCell scope="col">Nimi</CTableHeaderCell>
+            <CTableHeaderCell scope="col">Hinta</CTableHeaderCell>
+            <CTableHeaderCell scope="col">Määrä</CTableHeaderCell>
+          </CTableRow>
         </CTableHead>      
         <CTableBody>
           {products} 

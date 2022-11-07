@@ -61,7 +61,7 @@ const ProductPage = (props) => {
             <h6>{state.product.info}</h6>
            
             <CButton color="secondary" onClick={onClick}>Lisää ostoskoriin</CButton>
-            <p><Link to="/">Etusivulle</Link></p>
+            <p><Link to={`/${props.currentCategory}`}>Takaisin</Link></p>
 
 
             </CCol>

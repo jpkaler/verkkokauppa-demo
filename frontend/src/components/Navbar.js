@@ -17,7 +17,7 @@ const Navbar = (props) => {
     const onClick = (event) => {
         event.preventDefault();
         props.searchProducts(state.search.trim());
-        navigate("/");
+        navigate(`/search?search=${state.search}`);
     }
     
     //CNavbar: "sticky-top" pitää Navbarin aina näkyvillä.
