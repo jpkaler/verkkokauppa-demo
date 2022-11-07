@@ -56,6 +56,16 @@ function App() {
     })
   }
 
+  const setHomePageState = () => {
+    setState((state) => {
+      return {
+        ...state,
+        products:[],
+        currentCategory: ""
+      }
+    })
+  }
+
   // UseEffect -> hakee datan url-actionin perusteella
   useEffect(() => {
     console.log(`Urlrequest: ${urlRequest.action}`);
@@ -140,7 +150,6 @@ function App() {
   }, [urlRequest]);
 
   useEffect(() => {
-    console.log("Current category muuttui");
     if (state.currentCategory !== "") {
       getProductsByCategory(state.currentCategory);
     }
@@ -219,10 +228,10 @@ function App() {
   //Renderöi tuotteet vasta kun data on haettu
   let tempRender = <></>
   if (state.loading) {
-    tempRender = <h3>Tuotteita ladataan...</h3>
+    tempRender = <></>
   } else {
     tempRender = <Routes>
-                    <Route exact path="/" element={<HomePage products={state.products} error={state.error} categories={state.categories} setCurrentCategory={setCurrentCategory}/>}/>
+                    <Route exact path="/" element={<HomePage products={state.products} error={state.error} categories={state.categories} setCurrentCategory={setCurrentCategory} setHomePageState={setHomePageState}/>}/>
                     <Route path="/cart" element={<ShoppingCart cart={state.cart} setCart={setCart} />}/>
                     <Route path="/admin" element={<AdminPage products={state.products} addProduct={addProduct} removeProduct={removeProduct} editProduct={editProduct}/>}/>
                     <Route path="/:category" element={<CategoryPage categories={state.categories} products={state.products} setCurrentCategory={setCurrentCategory} setCart={setCart} cart={state.cart}/>}/>
