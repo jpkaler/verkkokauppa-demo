@@ -48,13 +48,17 @@ const ShoppingCartRow = (props) => {
     return (
         <CTableRow>
             <CTableDataCell>{props.name}</CTableDataCell>
-            <CTableDataCell>{props.price}</CTableDataCell>
-            <CButton color="secondary" id="oneLess" name="oneLess" onClick={oneLess}>-</CButton>
-            <CTableDataCell>{props.quantity}</CTableDataCell>
-            <CButton color="secondary" id="oneMore" name="oneMore" onClick={oneMore}>+</CButton>
-            <CButton color="secondary" onClick={removeFromCart} >
-                Remove
-            </CButton>
+            <CTableDataCell>{props.price}€</CTableDataCell>
+            <CTableDataCell>
+                <CButton color="secondary" id="oneLess" name="oneLess" onClick={oneLess}>-</CButton>
+                {props.quantity}
+                <CButton color="secondary" id="oneMore" name="oneMore" onClick={oneMore}>+</CButton>
+            </CTableDataCell>
+            <CTableDataCell>
+                <CButton color="secondary" onClick={removeFromCart} >
+                    Remove
+                </CButton>
+            </CTableDataCell>
 
         </CTableRow>
     )

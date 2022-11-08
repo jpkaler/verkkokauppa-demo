@@ -13,13 +13,14 @@ const CategoryPage = (props) => {
             <CRow>
                 <CCol>
             <CategoryBar categories={props.categories} getProductsByCategory={props.getProductsByCategory} setCurrentCategory={props.setCurrentCategory}/>
-            <ProductList products={props.products} />
+            <ProductList products={props.products} setCart={props.setCart} cart={props.cart}/>
             </CCol>
             </CRow>
             <CFooter position="fixed">
                 <span> 2022 Juho Kalermo & Riku Sänkiaho</span>
             </CFooter>
         </CContainer>
+            
         </>
     )
 }

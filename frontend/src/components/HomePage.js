@@ -1,10 +1,13 @@
 import { CFooter, CCol, CContainer, CRow } from "@coreui/react";
+import { useEffect } from "react";
 import CategoryBar from "./CategoryBar";
 import ProductList from "./ProductList";
 
 const HomePage = (props) => {
 
-    
+    useEffect(() => {
+        props.setHomePageState();
+    }, [])
 
     return (
         <CContainer>

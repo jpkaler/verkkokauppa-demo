@@ -55,13 +55,11 @@ const ProductPage = (props) => {
                     <h4>{state.product.price} €</h4>
                     <h6>{state.product.info}</h6>
            
-                        <CButton color="secondary" onClick={onClick}>
-                            Lisää ostoskoriin
-                        </CButton>
-                    <p><Link to="/">
-                        Etusivulle
-                    </Link></p>
-                </CCol>
+            <CButton color="secondary" onClick={onClick}>Lisää ostoskoriin</CButton>
+            <p><Link to={`/${props.currentCategory}`}>Takaisin</Link></p>
+
+
+            </CCol>
             </CRow>
             </CContainer>
         </div>

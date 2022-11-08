@@ -8,6 +8,7 @@ import ShoppingCart from './components/ShoppingCart';
 import HomePage from './components/HomePage';
 import CategoryPage from './components/CategoryPage';
 import Footer from './components/Footer';
+import SearchPage from './components/SearchPage';
 
 function App() {
 
@@ -21,12 +22,9 @@ function App() {
   })
 
   const [urlRequest, setUrlRequest] = useState({
-    url:"/api/verkkokauppa/categories",
-      request:{
-        method:"GET",
-        headers:{"Content-Type":"application/json"}
-      },
-      action:"getcategories"
+    url:"",
+    request:{},
+    action:""
   })
 
   const setLoading = (loading) => {
@@ -53,6 +51,16 @@ function App() {
       return {
         ...state,
         currentCategory: category
+      }
+    })
+  }
+
+  const setHomePageState = () => {
+    setState((state) => {
+      return {
+        ...state,
+        products:[],
+        currentCategory: ""
       }
     })
   }
@@ -140,12 +148,17 @@ function App() {
 
   }, [urlRequest]);
 
+
+  // Muokkaa product-listaa kategorian muuttuessa (kategoria-napin painamisesta)
   useEffect(() => {
-    console.log("Current category muuttui");
     if (state.currentCategory !== "") {
       getProductsByCategory(state.currentCategory);
     }
   }, [state.currentCategory])
+
+  useEffect(() => {
+    getCategories();
+  }, []);
   
   // Url request actions
   const searchProducts = (search) => {
@@ -220,14 +233,15 @@ function App() {
   //Renderöi tuotteet vasta kun data on haettu
   let tempRender = <></>
   if (state.loading) {
-    tempRender = <h3>Tuotteita ladataan...</h3>
+    tempRender = <></>
   } else {
     tempRender = <Routes>
-                    <Route exact path="/" element={<HomePage products={state.products} error={state.error} categories={state.categories} setCurrentCategory={setCurrentCategory}/>}/>
+                    <Route exact path="/" element={<HomePage products={state.products} error={state.error} categories={state.categories} setCurrentCategory={setCurrentCategory} setHomePageState={setHomePageState}/>}/>
+                    <Route path="/search" element = {<SearchPage products={state.products} categories={state.categories} setCurrentCategory={setCurrentCategory} setCart={setCart} cart={state.cart}/>} />
                     <Route path="/cart" element={<ShoppingCart cart={state.cart} setCart={setCart} />}/>
                     <Route path="/admin" element={<AdminPage products={state.products} addProduct={addProduct} removeProduct={removeProduct} editProduct={editProduct}/>}/>
-                    <Route path="/:category" element={<CategoryPage categories={state.categories} products={state.products} setCurrentCategory={setCurrentCategory}/>}/>
-                    <Route path="/:category/:productId" element={<ProductPage products={state.products} cart={state.cart} setCart={setCart}/>}/>
+                    <Route path="/:category" element={<CategoryPage categories={state.categories} products={state.products} setCurrentCategory={setCurrentCategory} setCart={setCart} cart={state.cart}/>}/>
+                    <Route path="/:category/:productId" element={<ProductPage products={state.products} cart={state.cart} setCart={setCart} currentCategory={state.currentCategory}/>}/>
                   </Routes>
   }
 
