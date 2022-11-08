@@ -22,9 +22,9 @@ const SearchPage = (props) => {
     }, [props.search])
 
     return (
-        <div>
+        <CContainer>
             <ProductList products={state.products} />
-        </div>
+        </CContainer>
     )
 }
 

@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { CRow, CImage, CCol, CHeader, CButton } from '@coreui/react';
+import { CRow, CImage, CContainer, CCol, CHeader, CButton } from '@coreui/react';
 
 const ProductPage = (props) => {
     
@@ -41,31 +41,29 @@ const ProductPage = (props) => {
 
     return (
         <div>
-            <CRow>
-                ""
-            </CRow>
+            <CContainer>
+            <CRow className="justify-content-center">
+                <CCol className="align-self-center">
+                    <CImage align="center" fluid src="/placeholder-large.jpg" />
+                </CCol>
+                <CCol md={8} className="align-self-center">
+                    <CHeader>
+                        <h2>{state.product.name}</h2>
+                    </CHeader>
 
-            <CRow> 
-            <CCol>
-            </CCol>
-            <CCol>
-            <CImage align="center" fluid src="/placeholder-large.jpg" />
-            </CCol>
-            
-            <CCol md={8}>
-                <CHeader>
-                    <h2>{state.product.name}</h2>
-                </CHeader>
-            <h6>{state.product.category}</h6>
-            <h4>{state.product.price} €</h4>
-            <h6>{state.product.info}</h6>
+                    <h6>{state.product.category}</h6>
+                    <h4>{state.product.price} €</h4>
+                    <h6>{state.product.info}</h6>
            
-            <CButton color="secondary" onClick={onClick}>Lisää ostoskoriin</CButton>
-            <p><Link to="/">Etusivulle</Link></p>
-
-
-            </CCol>
+                        <CButton color="secondary" onClick={onClick}>
+                            Lisää ostoskoriin
+                        </CButton>
+                    <p><Link to="/">
+                        Etusivulle
+                    </Link></p>
+                </CCol>
             </CRow>
+            </CContainer>
         </div>
     )
 };

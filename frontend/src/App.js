@@ -7,6 +7,7 @@ import AdminPage from './components/AdminPage';
 import ShoppingCart from './components/ShoppingCart';
 import HomePage from './components/HomePage';
 import CategoryPage from './components/CategoryPage';
+import Footer from './components/Footer';
 
 function App() {
 
@@ -234,6 +235,7 @@ function App() {
     <div>
       <Navbar searchProducts={searchProducts}/>
       {tempRender}
+      <Footer/>
     </div>
   );
 }

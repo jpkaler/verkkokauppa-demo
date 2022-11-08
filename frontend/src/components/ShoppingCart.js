@@ -1,6 +1,6 @@
 import ShoppingCartRow from "./ShoppingCartRow";
 import ProductRow from "./ProductRow";
-import { CRow, CCol, CButton, CTable, CTableHead, CTableBody, CTableHeaderCell } from '@coreui/react';
+import { CFooter, CRow, CCol, CButton, CTable, CTableHead, CTableBody, CTableHeaderCell } from '@coreui/react';
 
 const ShoppingCart = (props) => {
 
@@ -21,6 +21,9 @@ const ShoppingCart = (props) => {
         <CTableBody>
           {products} 
         </CTableBody>
+        <CFooter position="fixed">
+                <span> 2022 Juho Kalermo & Riku Sänkiaho</span>
+            </CFooter>
       </CTable>
     )
 }
