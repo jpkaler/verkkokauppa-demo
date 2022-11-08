@@ -21,12 +21,9 @@ function App() {
   })
 
   const [urlRequest, setUrlRequest] = useState({
-    url:"/api/verkkokauppa/categories",
-      request:{
-        method:"GET",
-        headers:{"Content-Type":"application/json"}
-      },
-      action:"getcategories"
+    url:"",
+    request:{},
+    action:""
   })
 
   const setLoading = (loading) => {
@@ -150,11 +147,17 @@ function App() {
 
   }, [urlRequest]);
 
+
+  // Muokkaa product-listaa kategorian muuttuessa (kategoria-napin painamisesta)
   useEffect(() => {
     if (state.currentCategory !== "") {
       getProductsByCategory(state.currentCategory);
     }
   }, [state.currentCategory])
+
+  useEffect(() => {
+    getCategories();
+  }, []);
   
   // Url request actions
   const searchProducts = (search) => {
