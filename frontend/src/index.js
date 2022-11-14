@@ -1,12 +1,15 @@
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import '@coreui/coreui/dist/css/coreui.min.css';
+import './custom.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+
 
     <BrowserRouter>
       <App />

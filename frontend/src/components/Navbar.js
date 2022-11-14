@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { CNavbar, CHeaderBrand, CForm, CFormInput, CContainer, CButton, CImage, CRow, CCol } from '@coreui/react'
+import { CFooter,CNavbar, CNavbarBrand, CNavbarNav, CNavLink, CNavItem, CHeaderBrand, CForm, CFormInput, CContainer, CButton, CImage, CRow, CCol } from '@coreui/react'
 import { useState } from 'react';
 
 const Navbar = (props) => {
@@ -23,41 +23,32 @@ const Navbar = (props) => {
     //CNavbar: "sticky-top" pitää Navbarin aina näkyvillä.
 
     return (
-    <CNavbar expand="lg" className="bg-success"  placement="sticky-top"> 
-    <CContainer fluid>
-        <CHeaderBrand color="">
-        <CRow>
-            <CCol sm >
-                <Link to="/"><CImage style={{height:"2.5em"}} fluid src="/icon-small.png" /></Link>
-            </CCol>
+    <CNavbar expand="lg" placement="sticky-top"> 
+        <CContainer fluid>
+            <CNavbarNav>
+                <CNavItem>
+                    <CNavbarBrand>
+                        <Link to="/">
+                            <CImage style={{height:"2.5em"}} fluid src="/icon.png" />
+                        </Link>
+                    </CNavbarBrand>
+                </CNavItem>
+                <CForm className="d-flex">
+                    <CFormInput type="text" name="search" id="search" placeholder='Hae tuotetta' onChange={onChange} value={state.search} />
+                    <CButton type="submit" color="dark" onClick={onClick} shape="rounded-0"  variant="outline">
+                        <CNavLink to="/">
+                            Hae
+                        </CNavLink>
+                    </CButton>
+                </CForm>
+            </CNavbarNav>  
+            <CForm className="d-flex"> 
+            <Link to="/cart">
+                Ostoskori
+            </Link> 
+            </CForm>
 
-        </CRow>
-        </CHeaderBrand>
-        
-        
-    </CContainer>
-
-    <CContainer fluid align="end">
-        <CForm className="d-flex justify-content-e" >
-        
-            <CFormInput type="text"
-                    name="search"
-                    id="search"
-                    placeholder='Hae tuotetta'
-                    onChange={onChange}
-                    value={state.search} />
-            <CButton type="submit" color="primary" onClick={onClick} style={{marginLeft:"10px"}} variant="outline">
-                <Link to="/">
-                Hae
-                </Link>
-            </CButton>
-
-        </CForm>
-
-        <p><Link to="/cart">Ostoskori</Link></p>
-        
         </CContainer>
-    
     </CNavbar>
     )
 }

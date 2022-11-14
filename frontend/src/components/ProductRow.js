@@ -1,4 +1,4 @@
-import { CButton } from '@coreui/react';
+import { CRow, CCol, CImage, CButton, CContainer, CTable, CTableHead, CTableHeaderCell, CTableRow, CTableBody, CTableDataCell } from '@coreui/react';
 import { Link } from 'react-router-dom';
 
 const ProductRow = (props) => {
@@ -37,14 +37,25 @@ const ProductRow = (props) => {
         linkRender = <td><Link to={`/${props.product.category}/${props.product.ID}`}>Tuotesivulle</Link></td>
     }
 
-    return (
-        <tr>
-            <td>{props.product.name}</td>
-            <td>{props.product.price}€</td>
-            <td><CButton onClick={onClick} name="addproduct" id="addproduct" color="secondary">Lisää ostoskoriin</CButton></td>
-            {linkRender}
-            {adminRender}
-        </tr>
+    return (  
+            <CCol xs={{ cols:2, gutter: 2 }} lg={{ cols: 4, gutter: 2}}  >
+                <div className="p-3 border border-dark">
+                <CImage sm="xs" align="center" fluid src="/placeholder.jpg" />    
+                    <CRow className="justify-content-center" xs={{ gutterX: 4, gutterY: 8 }}>
+                    {props.product.name}
+                    </CRow>
+                    <CRow className="justify-content-center">
+                    {props.product.price}€
+                    </CRow>
+                    <CButton onClick={onClick} name="addproduct" id="addproduct" color="secondary">
+                        Lisää ostoskoriin
+                    </CButton>
+                    <CRow className="justify-content-center">
+                    {linkRender}
+                    {adminRender}
+                    </CRow>
+                </div>
+            </CCol>
     )
 }
 
