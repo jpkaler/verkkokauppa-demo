@@ -1,5 +1,5 @@
 import ProductRow from './ProductRow';
-
+import { CTable, CTableHead, CTableHeaderCell, CTableRow, CTableBody, CTableDataCell, CContainer, CRow } from "@coreui/react";
 
 /* 
 const UP_ARROW = '&#8593;';
@@ -13,21 +13,12 @@ const ProductList = (props) => {
         return <ProductRow key={product.ID} product={product} setCart={props.setCart} cart={props.cart} />
     })
 
-    
-  
     return (
-        <table>
-            <thead>
-                <tr>
-                    <th>Nimi</th>
-                    <th>Hinta</th>
-                </tr>
-            </thead>
-            <tbody>
-                {/* <tr>{props.error}</tr> */}
+        <CContainer>
+            <CRow xs={{ gutterY: 4 }}>
                 {products}
-            </tbody>
-        </table>
+            </CRow>
+        </CContainer>
     )
 }
 

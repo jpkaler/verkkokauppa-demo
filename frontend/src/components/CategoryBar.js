@@ -1,4 +1,4 @@
-import { CCol, CButton, CButtonGroup } from "@coreui/react";
+import { CRow, CContainer, CButton, CButtonGroup } from "@coreui/react";
 import { Link } from 'react-router-dom';
 
 const CategoryBar = (props) => {
@@ -18,11 +18,13 @@ const CategoryBar = (props) => {
 			</Link>)
 
 	return (
-		<CCol>
-			<CButtonGroup vertical role="group" aria-label="Category links" >
-				{categories}
-			</CButtonGroup>
-		</CCol>
+		<CContainer fluid>
+			<CRow> 
+				<CButtonGroup horizontal role="group" aria-label="Category links" >
+					{categories}
+				</CButtonGroup>
+			</CRow>
+		</CContainer>
 	)
 }
 

@@ -10,18 +10,14 @@ const HomePage = (props) => {
     }, [])
 
     return (
-        <CContainer>
-            <CRow>
-                <CCol>
+        <CContainer fluid className="overflow-hidden min-vh-100"> 
+            <CRow xs={{ gutterY: 3 }}>
+                <CCol md="auto">
                     <CategoryBar categories={props.categories} setCurrentCategory={props.setCurrentCategory}/>
                 </CCol>
-                <CCol>
-                    <ProductList products={props.products} error={props.error}/>
+                <CCol md="auto">
                 </CCol>
             </CRow>
-            <CFooter position="fixed">
-                <span> 2022 Juho Kalermo & Riku Sänkiaho</span>
-            </CFooter>
         </CContainer>
         
     )
