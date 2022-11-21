@@ -33,30 +33,30 @@ const ProductRow = (props) => {
                     onClick={() => props.changeMode("remove", props.ID)}>Remove</CButton></td>
             </>
         )
-    } else {
-        linkRender = <td><Link to={`/${props.product.category}/${props.product.ID}`}>Tuotesivulle</Link></td>
     }
 
     return (  
-            <CCol xs={{ cols:2, gutter: 2 }} lg={{ cols: 4, gutter: 2}}  >
-                <div className="p-3 border border-dark">
-                <CImage sm="xs" align="center" fluid src="/placeholder.jpg" />    
-                    <CRow className="justify-content-center" xs={{ gutterX: 4, gutterY: 8 }}>
+            <CCol>
+                <div className="product-row p-3 ">
+                    <Link to={`/${props.product.category}/${props.product.ID}`}>
+                    <CImage sm="auto" lg="auto" align="center" fluid src="/placeholder.jpg" />   
+                    <CRow className="justify-content-start" sm={{ gutterX: 3, gutterY: 6 }}>
                     {props.product.name}
                     </CRow>
-                    <CRow className="justify-content-center">
+                    </Link> 
+                    <CRow className="justify-content-start desc-text">
                     {props.product.price}€
                     </CRow>
-                    <CButton onClick={onClick} name="addproduct" id="addproduct" color="secondary">
+                    <CRow>
+                    <CButton onClick={onClick} name="addproduct" id="addproduct">
                         Lisää ostoskoriin
                     </CButton>
+                    </CRow>
                     <CRow className="justify-content-center">
-                    {linkRender}
                     {adminRender}
                     </CRow>
                 </div>
             </CCol>
     )
 }
-
 export default ProductRow;

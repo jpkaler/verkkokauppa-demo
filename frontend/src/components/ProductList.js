@@ -14,8 +14,8 @@ const ProductList = (props) => {
     })
 
     return (
-        <CContainer>
-            <CRow xs={{ gutterY: 4 }}>
+        <CContainer fluid>
+            <CRow xs={{ gutterY: 2, cols: 3 }} lg={{ gutterY: 2, cols: 4 }} xl={{ gutterY: 2, cols: 5 }} >
                 {products}
             </CRow>
         </CContainer>

@@ -35,7 +35,7 @@ const Navbar = (props) => {
                 </CNavItem>
                 <CForm className="d-flex">
                     <CFormInput type="text" name="search" id="search" placeholder='Hae tuotetta' onChange={onChange} value={state.search} />
-                    <CButton type="submit" color="dark" onClick={onClick} shape="rounded-0"  variant="outline">
+                    <CButton className="btn-search" type="submit" onClick={onClick} shape="rounded-1">
                         <CNavLink to="/">
                             Hae
                         </CNavLink>
@@ -44,7 +44,9 @@ const Navbar = (props) => {
             </CNavbarNav>  
             <CForm className="d-flex"> 
             <Link to="/cart">
+                <CButton className="btn-cart">
                 Ostoskori
+                </CButton>
             </Link> 
             </CForm>
 
