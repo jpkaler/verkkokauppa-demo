@@ -10,7 +10,7 @@ const CategoryBar = (props) => {
 
 	let categories = props.categories.map((category) => 
 			<Link key={props.categories.indexOf(category)} to={`/${category.category}`}>
-				<CButton color="black" variant="ghost"
+				<CButton className="btn-category" color="black" variant="ghost"
 					id={category.category}
 					name={category.category}
 					onClick={onClick}>{category.category}
@@ -18,7 +18,7 @@ const CategoryBar = (props) => {
 			</Link>)
 
 	return (
-		<CContainer fluid>
+		<CContainer fluid className= "categorybar">
 			<CRow> 
 				<CButtonGroup horizontal role="group" aria-label="Category links" >
 					{categories}
