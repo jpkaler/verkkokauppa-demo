@@ -15,7 +15,7 @@ const HomePage = (props) => {
                 <CCol md="auto">
                     <CategoryBar categories={props.categories} setCurrentCategory={props.setCurrentCategory}/>
                 </CCol>
-                <CCol md="auto">
+                <CCol md="8">
                 </CCol>
             </CRow>
         </CContainer>
