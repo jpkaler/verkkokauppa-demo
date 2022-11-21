@@ -139,9 +139,17 @@ app.post("/register", async (req, res) => {
 })
 
 // GET - Logout -> poistaa user-objektin passport-objektista
-app.get("/logout", (req, res) => {
-    req.logout();
-    console.log(req.user);
+app.post("/logout", (req, res, next) => {
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+    });
+    if (req.user) {
+        return res.status(200).json({message: "Logout successful"});
+    } else {
+        return res.status(404).json({message: "No user logged in currently."});
+    }
 })
 
 
