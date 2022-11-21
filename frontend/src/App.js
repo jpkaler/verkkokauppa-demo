@@ -9,6 +9,7 @@ import HomePage from './components/HomePage';
 import CategoryPage from './components/CategoryPage';
 import Footer from './components/Footer';
 import SearchPage from './components/SearchPage';
+import { CButton } from '@coreui/react';
 
 function App() {
 
@@ -18,7 +19,10 @@ function App() {
     error:"",
     cart:[],
     categories:[],
-    currentCategory:""
+    currentCategory:"",
+    user:"",
+    isLogged: false,
+    isAdmin: false
   })
 
   const [urlRequest, setUrlRequest] = useState({
@@ -123,6 +127,20 @@ function App() {
           case "editproduct":
             searchProducts("");
             return;
+          case "register":
+            console.log("Register successful!");
+            return;
+          case "login":
+            let loginData = await response.json();
+            setState((state) => {
+              return {
+                ...state,
+                isLogged: true,
+                user: loginData.username,
+                isAdmin: loginData.admin
+              }
+            })
+            return;
           default:
             return;
         }
@@ -162,6 +180,30 @@ function App() {
   }, []);
   
   // Url request actions
+  const register = (user) => {
+    setUrlRequest({
+      url:"/register",
+      request:{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify(user)
+      },
+      action: "register"
+    })
+  }
+
+  const login = (user) => {
+    setUrlRequest({
+      url:"/login",
+      request:{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify(user)
+      },
+      action: "login"
+    })
+  }
+
   const searchProducts = (search) => {
     let searchUrl = `?search=${search}`
     setUrlRequest({
@@ -248,8 +290,10 @@ function App() {
 
   return (
     <div>
-      <Navbar searchProducts={searchProducts}/>
+      <Navbar searchProducts={searchProducts} login={login} isLogged={state.isLogged} user={state.user} />
       {tempRender}
+      <CButton onClick={() => {register({username: "juho9999", password:"12345"})}}>Register</CButton>
+      <CButton onClick={() => {login({username: "juho9999", password:"12345"})}}>Login</CButton>
       <Footer/>
     </div>
   );

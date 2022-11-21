@@ -1,13 +1,148 @@
 const express = require('express');
-const res = require('express/lib/response');
+const session = require('express-session');
+const SQLiteStore = require('connect-sqlite3')(session);
 const sqlite3 = require('sqlite3');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 
-let app = express();                    //
-app.use(express.json());                //kaikki menee expressin kautta
+let app = express();
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+
+// Current session
+app.use(
+    session({
+        name: "shopping-session",
+        secret: process.env.VERKKOKAUPPA_SECRET,
+        cookie:{ maxAge: 1000 * 60 * 60},
+        resave: false,
+        saveUnitialized: false,
+        store: new SQLiteStore({ db: 'sessions.db', dir: './db' })
+    })
+)
 
 // Product Database
-
 const db = new sqlite3.Database('../products.db');
+
+// Passport JS Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Passport Strategy
+passport.use('local-login', new LocalStrategy({
+    passReqToCallback: true
+    },
+    (req, username, password, done) => {
+        db.get('SELECT * FROM users WHERE username=$username', {
+            $username: username
+        }, (err, user) => {
+            if (err) {
+                console.log("ERRORIA")
+                return done(err);
+            }
+            if (!user) {
+                console.log("Käyttäjää ei ole!")
+                return done(null, false, {message: "Username not in database"});
+            }
+            bcrypt.compare(password, user.password, (err, match) => {
+                if (err) {
+                    console.log(`Comparing passwords resulted in error: ${err}`);
+                    return done(err);
+                }
+                if (!match) {
+                    console.log("Salasanat ei täsmää!")
+                    return done(null, false, {message: "Wrong password!"});
+                }
+                let token = createToken();
+                /* req.session.token = token;
+                req.session.user = username; */
+                console.log("passport strategy session:", req.session);
+                return done(null, user);
+            })
+        })
+    }
+))
+
+passport.serializeUser((user, done) => {
+    done(null, user.ID);
+})
+
+passport.deserializeUser((id, done) => {
+    db.get('SELECT * FROM users WHERE ID=$id', {
+        $id: id
+    }, (err, user) => {
+        if (err) {
+            return done(err);
+        }
+        return done(null, user);
+    })
+})
+
+// Administrator middleware
+const isAdmin = (req, res, next) => {
+    if (req.user.admin !== 1) {
+        return res.status(401).json({message: "You do not have permission to do this."})
+    } else {
+        next();
+    }
+}
+
+// Password hashing function
+const passwordHash = async (password, saltRounds) => {
+    try {
+        const salt = await bcrypt.genSalt(saltRounds);
+        return await bcrypt.hash(password, salt);
+    } catch (error) {
+        console.log(`Server responded with error ${error}: ${error.message}`);
+    }
+    return null;
+}
+
+// Create Token -function
+const createToken = () => {
+    let token = crypto.randomBytes(64);
+    return token.toString("hex");
+}
+
+// POST - login -> tarkistetaan onnistuuko login
+app.post("/login", passport.authenticate('local-login', { failureRedirect: "/" }),
+    (req, res) => {
+        console.log("Login request session", req.session);
+        console.log("User:", req.user);
+        let admin = (req.user.admin === 1);
+        res.status(200).json({username: req.user.username, admin: admin});
+    })
+
+
+// POST - Register -> rekisteröidään käyttäjätili
+app.post("/register", async (req, res) => {
+    const { username, password } = req.body;
+    if (!username || !password) {
+        return res.status(400).json({message: "Username or password empty!"});
+    } 
+    
+    const hash = await passwordHash(password, 8);
+
+    db.run('INSERT INTO users (username, password) VALUES ($username, $hash)', {
+        $username: username,
+        $hash: hash
+    }, (err) => {
+        if (err) {
+            return res.status(400).json({message: `Database error: ${err}`});
+        } else {
+            return res.status(201).json({message: "User registered!"});
+        }
+    })
+})
+
+// GET - Logout -> poistaa user-objektin passport-objektista
+app.get("/logout", (req, res) => {
+    req.logout();
+    console.log(req.user);
+})
 
 
 // GET -> hakukriteerin mukainen tuotetietokanta
@@ -66,7 +201,7 @@ app.get("/api/verkkokauppa/:productId", (req, res) => {
 
 
 // POST -> luo uusi tuote tietokantaan
-app.post("/api/verkkokauppa", (req,res) => {
+app.post("/api/verkkokauppa", isAdmin, (req,res) => {
     db.run('INSERT INTO products (name, price, category) VALUES ($name, $price, $category)', {
         $name: req.body.name,
         $price: req.body.price,
@@ -81,7 +216,7 @@ app.post("/api/verkkokauppa", (req,res) => {
 })
 
 // DELETE -> Poistaa halutun tuotteen tietokannasta
-app.delete("/api/verkkokauppa/:productId", (req,res) => {
+app.delete("/api/verkkokauppa/:productId", isAdmin, (req,res) => {
     db.run('DELETE FROM products WHERE ID = $productId', {
         $productId: req.params.productId
     }, (err) => {
@@ -91,7 +226,7 @@ app.delete("/api/verkkokauppa/:productId", (req,res) => {
 })
 
 // PUT -> Muokkaa valitun tuotteen tietoja tietokannassa
-app.put("/api/verkkokauppa/:productId", (req,res) => {
+app.put("/api/verkkokauppa/:productId", isAdmin, (req,res) => {
     db.run('UPDATE products SET name=$name, price=$price, category=$category WHERE ID = $productId', {
         $name: req.body.name,
         $price: req.body.price,
