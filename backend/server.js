@@ -110,7 +110,6 @@ const createToken = () => {
 // POST - login -> tarkistetaan onnistuuko login
 app.post("/login", passport.authenticate('local-login', { failureRedirect: "/" }),
     (req, res) => {
-        console.log("Login request session", req.session);
         console.log("User:", req.user);
         let admin = (req.user.admin === 1);
         res.status(200).json({username: req.user.username, admin: admin});
@@ -140,12 +139,13 @@ app.post("/register", async (req, res) => {
 
 // GET - Logout -> poistaa user-objektin passport-objektista
 app.post("/logout", (req, res, next) => {
-    req.logout((err) => {
-        if (err) {
-            return next(err);
-        }
-    });
     if (req.user) {
+        req.logout((err) => {
+            if (err) {
+                console.log("logout error")
+                return next(err);
+            }
+        });
         return res.status(200).json({message: "Logout successful"});
     } else {
         return res.status(404).json({message: "No user logged in currently."});
