@@ -40,7 +40,7 @@ const Navbar = (props) => {
     }
 
     const logoutClick = () => {
-        
+        props.logout();
     }
     
     //CNavbar: "sticky-top" pitää Navbarin aina näkyvillä.
@@ -48,7 +48,7 @@ const Navbar = (props) => {
     if (props.isLogged) {
         loginRender = (<>
             <CButton>{props.user}</CButton>
-            <CButton onClick={logoutClick} name="logout">Logout</CButton>
+            <CButton onClick={logoutClick} name="logout">Kirjaudu ulos</CButton>
         </>)
     } else {
         loginRender = (<CForm className="d-flex" name="login">
@@ -57,6 +57,11 @@ const Navbar = (props) => {
             <CButton type="submit" color="dark" onClick={loginClick} shape="rounded-0"  variant="outline">
                 <CNavLink to="/">
                     Kirjaudu sisään
+                </CNavLink>
+            </CButton>
+            <CButton color="dark" shape="rounded-0"  variant="outline">
+                <CNavLink to="/register">
+                    Rekisteröidy
                 </CNavLink>
             </CButton>
         </CForm>)
@@ -82,11 +87,6 @@ const Navbar = (props) => {
                     </CButton>
                 </CForm>
                 {loginRender}
-                <CForm className="d-flex"> 
-                    <Link to="/cart">
-                        Ostoskori
-                    </Link> 
-                </CForm>
             </CNavbarNav>  
             <CForm className="d-flex"> 
             <Link to="/cart">

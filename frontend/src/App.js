@@ -141,6 +141,17 @@ function App() {
               }
             })
             return;
+          case "logout":
+            setState((state) => {
+              return {
+                ...state,
+                isLogged: false,
+                user: "",
+                isAdmin: false
+              }
+            })
+            console.log("Logout successful!");
+            return;
           default:
             return;
         }
@@ -201,6 +212,17 @@ function App() {
         body: JSON.stringify(user)
       },
       action: "login"
+    })
+  }
+
+  const logout = () => {
+    setUrlRequest({
+      url:"/logout",
+      request:{
+        method:"POST",
+        headers:{"Content-Type":"application/json"}
+      },
+      action: "logout"
     })
   }
 
@@ -290,10 +312,8 @@ function App() {
 
   return (
     <div>
-      <Navbar searchProducts={searchProducts} login={login} isLogged={state.isLogged} user={state.user} />
+      <Navbar searchProducts={searchProducts} login={login} logout={logout} isLogged={state.isLogged} user={state.user} />
       {tempRender}
-      <CButton onClick={() => {register({username: "juho9999", password:"12345"})}}>Register</CButton>
-      <CButton onClick={() => {login({username: "juho9999", password:"12345"})}}>Login</CButton>
       <Footer/>
     </div>
   );
