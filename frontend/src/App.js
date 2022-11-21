@@ -89,6 +89,7 @@ function App() {
               setState((state) => {
                 return {
                   ...state,
+                  currentCategory: "",
                   products:data
                 }
               });
