@@ -46,6 +46,7 @@ const Navbar = (props) => {
     //CNavbar: "sticky-top" pitää Navbarin aina näkyvillä.
     let loginRender = <></>
     if (props.isLogged) {
+        
         loginRender = (<>
             <CButton>{props.user}</CButton>
             <CButton onClick={logoutClick} name="logout">Kirjaudu ulos</CButton>
