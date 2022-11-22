@@ -125,7 +125,7 @@ app.post("/register", async (req, res) => {
     
     const hash = await passwordHash(password, 8);
 
-    db.run('INSERT INTO users (username, password) VALUES ($username, $hash)', {
+    db.run('INSERT INTO users (username, password, admin) VALUES ($username, $hash, 0)', {
         $username: username,
         $hash: hash
     }, (err) => {
