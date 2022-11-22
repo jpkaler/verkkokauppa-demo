@@ -1,3 +1,4 @@
 node_modules/
 addproducts.js
 sessions.db
+products.db
