@@ -3,3 +3,4 @@ addproducts.js
 sessions.db
 products.db
 backend/db/sessions.db
+db/

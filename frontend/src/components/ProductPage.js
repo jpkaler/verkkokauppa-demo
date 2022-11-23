@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { CRow, CImage, CContainer, CCol, CHeader, CButton } from '@coreui/react';
 import CategoryBar from "./CategoryBar";
@@ -14,6 +14,7 @@ const ProductPage = (props) => {
         }
     })
 
+    const navigate = useNavigate();
     const { productId } = useParams();
     console.log("product page renderöi");
 
@@ -59,8 +60,8 @@ const ProductPage = (props) => {
                         <CButton color="secondary" onClick={onClick}>
                             Lisää ostoskoriin
                         </CButton>
-                        <p><Link to={`/${props.currentCategory}`}>Takaisin</Link></p>
                     </CCol>
+                    <CButton onClick={() => navigate(-1)}>Takaisin</CButton>
                 </CRow>
             </CContainer>
         </div>
