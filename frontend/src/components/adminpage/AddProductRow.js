@@ -1,4 +1,4 @@
-import { CButton } from '@coreui/react';
+import { CButton, CFormInput, CTableDataCell, CTableRow} from '@coreui/react';
 import { useState } from 'react';
 
 const AddProductRow = (props) => {
@@ -43,18 +43,18 @@ const AddProductRow = (props) => {
     }
 
     return (
-        <tr>
-            <td>
-                <input type="text"
+        <CTableRow>
+            <CTableDataCell>
+                <CFormInput type="text"
                         name="name"
                         id="name"
                         onChange={onChange}
                         value={state.name}
                         placeholder="Nimi"
                 />
-            </td>
-            <td>
-                <input type="number"
+            </CTableDataCell>
+            <CTableDataCell>
+                <CFormInput type="number"
                         name="price"
                         id="price"
                         step="0.01"
@@ -62,19 +62,19 @@ const AddProductRow = (props) => {
                         value={state.price}
                         placeholder="Hinta"
                 />
-            </td>
-            <td>
-                <input type="text"
+            </CTableDataCell>
+            <CTableDataCell>
+                <CFormInput type="text"
                         name="category"
                         id="category"
                         onChange={onChange}
                         value={state.category}
                         placeholder="Kategoria"
                 />
-            </td>
-            <td><CButton onClick={onClick}>Lisää tuote</CButton></td>
-            <td>{error}</td>
-        </tr>
+            </CTableDataCell>
+            <CTableDataCell><CButton onClick={onClick}>Lisää tuote</CButton></CTableDataCell>
+            <CTableDataCell>{error}</CTableDataCell>
+        </CTableRow>
     )
 }
 

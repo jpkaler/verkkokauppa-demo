@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 const Navbar = (props) => {
 
+    let location = useLocation();
     let navigate = useNavigate();
     // Hakukentän toiminnallisuus
     const [state, setState] = useState({
@@ -24,7 +25,12 @@ const Navbar = (props) => {
     const onClick = (event) => {
         event.preventDefault();
         props.searchProducts(state.search.trim());
-        navigate(`/search?search=${state.search}`);
+        if (location.pathname === "/admin") {
+            return;
+        } else {
+            navigate(`/search?search=${state.search}`);
+        }
+        
     }
 
     const loginClick = (event) => {
@@ -40,7 +46,9 @@ const Navbar = (props) => {
     }
 
     const logoutClick = () => {
-        
+        if (location.pathname === "/admin") {
+            navigate("/");
+        }
         props.logout();
     }
     
