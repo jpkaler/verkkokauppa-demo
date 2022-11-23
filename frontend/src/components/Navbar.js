@@ -85,8 +85,8 @@ const Navbar = (props) => {
                     <img
                     src="/icon.png"
                     alt=""
-                    width="225"
-                    height="50"
+                    width="250"
+                    height="60"
                     className="d-inline-block align-top"
                     />{' '}      
                 </CNavbarBrand>

@@ -1,4 +1,4 @@
-import { CForm, CFormInput, CButton, CRow } from "@coreui/react";
+import { CForm, CFormInput, CButton, CRow, CContainer } from "@coreui/react";
 import { useState } from 'react';
 
 
@@ -29,6 +29,7 @@ const RegisterPage = (props) => {
     }
 
     return (
+        <CContainer className="overflow-hidden min-vh-100">
         <CForm onSubmit={register}>
             <CRow className="position-relative">
                 <CFormInput
@@ -57,7 +58,8 @@ const RegisterPage = (props) => {
             </CRow>
             <CButton type="submit" id="register">Rekisteröidy</CButton>
             <h4>{props.error.message}</h4>
-        </CForm>        
+        </CForm>      
+        </CContainer>  
     )
 }
 
