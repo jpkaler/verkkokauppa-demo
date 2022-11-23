@@ -13,14 +13,15 @@ const CategoryBar = (props) => {
 				<CButton className="btn-category" color="black" variant="ghost"
 					id={category.category}
 					name={category.category}
-					onClick={onClick}>{category.category}
+					onClick={onClick}>
+						{category.category.toUpperCase()}
 				</CButton>
 			</Link>)
 
 	return (
-		<CContainer fluid className= "categorybar">
+		<CContainer fluid className= "category-bar">
 			<CRow> 
-				<CButtonGroup horizontal role="group" aria-label="Category links" >
+				<CButtonGroup horizontal-role="group" aria-label="Category links" >
 					{categories}
 				</CButtonGroup>
 			</CRow>

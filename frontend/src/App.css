@@ -60,9 +60,14 @@ body {
   border-radius: 2 white;
 }
 
-.categorybar {
+.category-bar {
   background: rgb(21, 21, 21);
 
+}
+
+.shopping-cart {
+  color: white;
+  background: rgb(38, 38, 38);
 }
 
 .product-row {
@@ -89,7 +94,7 @@ body {
   font: 10px Verdana, sans-serif;
   font-size: 10px;
   color: rgb(255, 255, 255);
-  background: rgb(16, 105, 207);
+  background: rgb(23, 86, 158);
   border: 1px solid rgb(0, 0, 0);
 }
 

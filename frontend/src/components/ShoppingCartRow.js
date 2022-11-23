@@ -46,13 +46,13 @@ const ShoppingCartRow = (props) => {
     }
 
     return (
-        <CTableRow>
+        <CTableRow className="shopping-cart">
             <CTableDataCell>{props.name}</CTableDataCell>
             <CTableDataCell>{props.price}€</CTableDataCell>
             <CTableDataCell>
-                <CButton color="secondary" id="oneLess" name="oneLess" onClick={oneLess}>-</CButton>
+                <CButton color="secondary" id="oneLess" name="oneLess" variant="outline" onClick={oneLess}>-</CButton>
                 {props.quantity}
-                <CButton color="secondary" id="oneMore" name="oneMore" onClick={oneMore}>+</CButton>
+                <CButton color="secondary" id="oneMore" name="oneMore" variant="outline" onClick={oneMore}>+</CButton>
             </CTableDataCell>
             <CTableDataCell>
                 <CButton color="secondary" onClick={removeFromCart} >

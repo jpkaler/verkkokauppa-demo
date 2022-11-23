@@ -2,3 +2,4 @@ node_modules/
 addproducts.js
 sessions.db
 products.db
+backend/db/sessions.db
