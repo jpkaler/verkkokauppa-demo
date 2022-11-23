@@ -65,7 +65,8 @@ function App() {
       return {
         ...state,
         products:[],
-        currentCategory: ""
+        currentCategory: "",
+        error:""
       }
     })
   }
@@ -111,7 +112,6 @@ function App() {
             return;
           case "getproductsbycategory":
             let products = await response.json();
-            console.log("Paidat haettu");
             setState((state) => {
               return {
                 ...state,
@@ -169,6 +169,21 @@ function App() {
             })
             console.log(`Server responded with a status ${response.status}: ${response.statusText}`);
             return;
+          case "register":
+            console.log("Register failed");
+            let errorData = await response.json();
+            console.log(errorData);
+            setState((state) => {
+              return {
+                ...state,
+                error: errorData
+              }
+            })
+            return;
+          case "login":
+            console.log("Login failed");
+            let loginError = await response.json();
+            console.log(loginError);
           default:
             return;
         }
@@ -305,7 +320,7 @@ function App() {
                     <Route exact path="/" element={<HomePage products={state.products} error={state.error} categories={state.categories} setCurrentCategory={setCurrentCategory} setHomePageState={setHomePageState}/>}/>
                     <Route path="/search" element = {<SearchPage products={state.products} categories={state.categories} setCurrentCategory={setCurrentCategory} setCart={setCart} cart={state.cart}/>} />
                     <Route path="/cart" element={<ShoppingCart cart={state.cart} setCart={setCart} />}/>
-                    <Route path="/register" element={<RegisterPage register={register}/>}/>
+                    <Route path="/register" element={<RegisterPage register={register} error={state.error}/>}/>
                     <Route path="/admin" element={<AdminPage products={state.products} addProduct={addProduct} removeProduct={removeProduct} editProduct={editProduct} />}/>
                     <Route path="/:category" element={<CategoryPage categories={state.categories} products={state.products} setCurrentCategory={setCurrentCategory} setCart={setCart} cart={state.cart}/>}/>
                     <Route path="/:category/:productId" element={<ProductPage products={state.products} cart={state.cart} setCart={setCart} currentCategory={state.currentCategory}/>}/>
@@ -314,7 +329,7 @@ function App() {
 
   return (
     <div>
-      <Navbar searchProducts={searchProducts} login={login} logout={logout} isLogged={state.isLogged} user={state.user} />
+      <Navbar searchProducts={searchProducts} login={login} logout={logout} isLogged={state.isLogged} user={state.user} error={state.error} />
       {tempRender}
       <Footer/>
     </div>

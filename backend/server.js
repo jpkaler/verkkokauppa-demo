@@ -120,7 +120,7 @@ app.post("/login", passport.authenticate('local-login', { failureRedirect: "/" }
 app.post("/register", async (req, res) => {
     const { username, password } = req.body;
     if (!username || !password) {
-        return res.status(400).json({message: "Username or password empty!"});
+        return res.status(400).json({message: "Anna käyttäjätunnus ja salasana"});
     } 
     
     const hash = await passwordHash(password, 8);
@@ -130,7 +130,7 @@ app.post("/register", async (req, res) => {
         $hash: hash
     }, (err) => {
         if (err) {
-            return res.status(400).json({message: `Database error: ${err}`});
+            return res.status(400).json({message: `Käyttäjätunnus on varattu`});
         } else {
             return res.status(201).json({message: "User registered!"});
         }
