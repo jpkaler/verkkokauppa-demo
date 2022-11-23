@@ -10,7 +10,6 @@ const RemoveProductRow = (props) => {
             <td><CButton color="danger" onClick={() => props.changeMode("cancel")}>Cancel</CButton></td>
             <td><CButton color="success" onClick={() => props.removeProduct(props.product.ID)}>Confirm</CButton></td>
         </tr>
-        
     )
 }
 

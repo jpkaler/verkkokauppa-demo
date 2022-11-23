@@ -22,20 +22,20 @@ const ShoppingCart = (props) => {
 
     return (  
       <CContainer fluid className="overflow-hidden min-vh-100">
-        <CTable striped small bordered align="middle" responsive >
+        <CTable className="category-bar" small bordered align="middle" responsive >
           <CTableHead>
             <CTableRow>
-              <CTableHeaderCell className="w-25" scope="col">Nimi</CTableHeaderCell>
-              <CTableHeaderCell className="w-25" scope="col">Hinta</CTableHeaderCell>
-              <CTableHeaderCell className="w-25" scope="col">Määrä</CTableHeaderCell>
-              <CTableHeaderCell className="w-25" scope="col"></CTableHeaderCell>
+              <CTableHeaderCell className="w-25 shopping-cart" scope="col">Nimi</CTableHeaderCell>
+              <CTableHeaderCell className="w-25 shopping-cart" scope="col">Hinta</CTableHeaderCell>
+              <CTableHeaderCell className="w-25 shopping-cart" scope="col">Määrä</CTableHeaderCell>
+              <CTableHeaderCell className="w-25 shopping-cart" scope="col"></CTableHeaderCell>
             </CTableRow>
           </CTableHead>
           <CTableBody>
             {products} 
             <CTableRow>
-              <CTableDataCell style={{fontWeight:"bold"}}>Yhteensä:</CTableDataCell>
-              <CTableDataCell style={{fontWeight:"bold"}}>{Math.round(total * 100) / 100}€</CTableDataCell>
+              <CTableDataCell className="w-25 shopping-cart" style={{fontWeight:"bold"}}>Yhteensä:</CTableDataCell>
+              <CTableDataCell className="w-25 shopping-cart" style={{fontWeight:"bold"}}>{Math.round(total * 100) / 100}€</CTableDataCell>
         <CTableDataCell></CTableDataCell>
         <CTableDataCell style={{fontWeight:"bold"}}><CButton onClick={order}>Tilaa</CButton></CTableDataCell>
             </CTableRow>

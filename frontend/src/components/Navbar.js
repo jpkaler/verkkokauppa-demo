@@ -52,52 +52,68 @@ const Navbar = (props) => {
             <CButton onClick={logoutClick} name="logout">Kirjaudu ulos</CButton>
         </>)
     } else {
-        loginRender = (<CForm className="d-flex" name="login">
-            <CFormInput type="text" name="username" id="username" placeholder='Käyttäjätunnus' onChange={onChange} value={state.username} />
-            <CFormInput type="password" name="password" id="password" placeholder='Salasana' onChange={onChange} value={state.password} />
-            <CButton type="submit" color="dark" onClick={loginClick} shape="rounded-0"  variant="outline">
+        loginRender = (
+        <CContainer fluid>
+                <CForm name="login" className="row g-3">
+                <CCol xs="auto">
+            <CFormInput type="text" size="sm" name="username" id="username" placeholder='Käyttäjätunnus' onChange={onChange} value={state.username} />
+            <CFormInput className="me-2" type="password" size="sm" name="password" id="password" placeholder='Salasana' onChange={onChange} value={state.password} />
+                </CCol>
+            </CForm>
+            <CRow>
+            <CCol xs="auto">
+            <CButton type="submit" color="dark" onClick={loginClick} shape="rounded-0" variant="outline">
                 <CNavLink to="/">
                     Kirjaudu sisään
                 </CNavLink>
             </CButton>
-            <h5>{props.error.message}</h5>
-            <CButton color="dark" shape="rounded-0"  variant="outline">
-                <Link to="/register">
+            <CButton component="a" color="dark" shape="rounded-0" variant="outline" href="/register">
                     Rekisteröidy
-                </Link>
             </CButton>
-        </CForm>)
+            </CCol>
+            </CRow>
+        </CContainer>
+        )
     }
 
     return (
     <CNavbar expand="lg" placement="sticky-top"> 
         <CContainer fluid>
-            <CNavbarNav>
-                <CNavItem>
-                    <CNavbarBrand>
-                        <Link to="/">
-                            <CImage style={{height:"2.5em"}} fluid src="/icon.png" />
-                        </Link>
-                    </CNavbarBrand>
-                </CNavItem>
-                <CForm className="d-flex" name="search">
-                    <CFormInput type="text" name="search" id="search" placeholder='Hae tuotetta' onChange={onChange} value={state.search} />
-                    <CButton className="btn-search" type="submit" onClick={onClick} shape="rounded-1">
-                        <CNavLink to="/">
-                            Hae
-                        </CNavLink>
-                    </CButton>
-                </CForm>
-                {loginRender}
-            </CNavbarNav>  
-            <CForm className="d-flex"> 
-            <Link to="/cart">
-                <CButton className="btn-cart">
-                Ostoskori
+            <CCol md="auto">
+            <Link to="/">
+                <CNavbarBrand href="#">
+                    <img
+                    src="/icon.png"
+                    alt=""
+                    width="225"
+                    height="50"
+                    className="d-inline-block align-top"
+                    />{' '}      
+                </CNavbarBrand>
+            </Link>
+            </CCol>
+            <CCol xs="auto" md={5} className="justify-content-start">
+            <CForm className="d-flex" name="search">
+                <CFormInput className="me-2" type="text" name="search" id="search" placeholder='Hae tuotetta' onChange={onChange} value={state.search} />
+                <CButton className="btn-search" type="submit" onClick={onClick} shape="rounded-1">
+                    <CNavLink to="/">
+                        Hae
+                    </CNavLink>
                 </CButton>
-            </Link> 
             </CForm>
-
+            </CCol>
+            <CCol xs="auto" md="auto">
+            {loginRender} 
+            </CCol>
+            <CCol xs="auto" md="" className="justify-self-end">
+            <CForm className="d-flex"> 
+                <Link to="/cart">
+                    <CButton className="btn-cart">
+                    Ostoskori
+                    </CButton>
+                </Link> 
+            </CForm>
+            </CCol>
         </CContainer>
     </CNavbar>
     )
