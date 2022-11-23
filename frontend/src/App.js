@@ -83,7 +83,6 @@ function App() {
       setLoading(true);
       let response = await fetch(urlRequest.url, urlRequest.request);
       setLoading(false);
-      console.log("data haettu")
       
       
       if (response.ok) {
@@ -133,6 +132,7 @@ function App() {
             return;
           case "login":
             let loginData = await response.json();
+            console.log(loginData);
             setState((state) => {
               return {
                 ...state,
