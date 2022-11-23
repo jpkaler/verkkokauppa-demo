@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { CFooter,CNavbar, CNavbarBrand, CNavbarNav, CNavLink, CNavItem, CHeaderBrand, CForm, CFormInput, CContainer, CButton, CImage, CRow, CCol } from '@coreui/react'
+import { CFooter,CNavbar, CNavbarBrand, CNavbarNav, CNavLink, CNavItem, CHeaderBrand, CForm, CFormInput, CContainer, CButton, CImage, CRow, CCol, CTooltip } from '@coreui/react'
 import { useState } from 'react';
 
 const Navbar = (props) => {
@@ -46,6 +46,7 @@ const Navbar = (props) => {
     //CNavbar: "sticky-top" pitää Navbarin aina näkyvillä.
     let loginRender = <></>
     if (props.isLogged) {
+        
         loginRender = (<>
             <CButton>{props.user}</CButton>
             <CButton onClick={logoutClick} name="logout">Kirjaudu ulos</CButton>
@@ -59,10 +60,11 @@ const Navbar = (props) => {
                     Kirjaudu sisään
                 </CNavLink>
             </CButton>
+            <h5>{props.error.message}</h5>
             <CButton color="dark" shape="rounded-0"  variant="outline">
-                <CNavLink to="/register">
+                <Link to="/register">
                     Rekisteröidy
-                </CNavLink>
+                </Link>
             </CButton>
         </CForm>)
     }

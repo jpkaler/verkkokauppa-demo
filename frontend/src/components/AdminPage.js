@@ -42,7 +42,7 @@ const AdminPage = (props) => {
         changeMode("cancel");
     }
 
-    let products =  props.products.map((product) => {
+    let products = props.products.map((product) => {
         if (state.removeId === product.ID) {
             return <RemoveProductRow key={product.ID} product={product} removeProduct={removeProduct} changeMode={changeMode} />
         }
@@ -50,7 +50,7 @@ const AdminPage = (props) => {
             return <EditProductRow key={product.ID} product={product} editProduct={editProduct} changeMode={changeMode} />
         }
         
-        return <ProductRow key={product.ID} ID={product.ID} name={product.name} price={product.price} category={product.category} changeMode={changeMode} admin={true}/>
+        return <ProductRow key={product.ID} product={product} changeMode={changeMode} admin={true}/>
     })
 
     return (
