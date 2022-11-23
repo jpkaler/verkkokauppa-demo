@@ -329,7 +329,7 @@ function App() {
 
   return (
     <div>
-      <Navbar searchProducts={searchProducts} login={login} logout={logout} isLogged={state.isLogged} user={state.user} error={state.error} />
+      <Navbar searchProducts={searchProducts} login={login} logout={logout} isLogged={state.isLogged} isAdmin={state.isAdmin} user={state.user} error={state.error} />
       {tempRender}
       <Footer/>
     </div>

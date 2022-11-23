@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate,useLocation } from 'react-router-dom';
 import { CFooter,CNavbar, CNavbarBrand, CNavbarNav, CNavLink, CNavItem, CHeaderBrand, CForm, CFormInput, CContainer, CButton, CImage, CRow, CCol, CTooltip } from '@coreui/react'
 import { useState } from 'react';
 
@@ -40,15 +40,21 @@ const Navbar = (props) => {
     }
 
     const logoutClick = () => {
+        
         props.logout();
     }
     
     //CNavbar: "sticky-top" pitää Navbarin aina näkyvillä.
     let loginRender = <></>
+    let adminButton = <></>
     if (props.isLogged) {
+        if (props.isAdmin) {
+            adminButton = <CButton onClick={() => navigate("/admin")}>Adminsivu</CButton>
+        }
         
         loginRender = (<>
             <CButton>{props.user}</CButton>
+            {adminButton}
             <CButton onClick={logoutClick} name="logout">Kirjaudu ulos</CButton>
         </>)
     } else {
@@ -67,7 +73,7 @@ const Navbar = (props) => {
                     Kirjaudu sisään
                 </CNavLink>
             </CButton>
-            <CButton component="a" color="dark" shape="rounded-0" variant="outline" href="/register">
+            <CButton component="a" color="dark" shape="rounded-0" variant="outline" onClick={() => navigate("/register")}>
                     Rekisteröidy
             </CButton>
             </CCol>
