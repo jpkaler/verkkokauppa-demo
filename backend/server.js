@@ -25,7 +25,7 @@ app.use(
 )
 
 // Product Database
-const db = new sqlite3.Database('../db/products.db');
+const db = new sqlite3.Database('./db/products.db');
 
 // Passport JS Middleware
 app.use(passport.initialize());
