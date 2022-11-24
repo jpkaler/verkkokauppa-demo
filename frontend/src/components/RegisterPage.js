@@ -1,4 +1,4 @@
-import { CForm, CFormInput, CButton, CRow, CContainer } from "@coreui/react";
+import { CForm, CFormInput, CButton, CRow, CContainer, CCol } from "@coreui/react";
 import { useState } from 'react';
 
 
@@ -29,36 +29,35 @@ const RegisterPage = (props) => {
     }
 
     return (
-        <CContainer className="overflow-hidden min-vh-100">
-        <CForm onSubmit={register}>
-            <CRow className="position-relative">
-                <CFormInput
-                    type="text"
-                    id="username"
-                    name="username"
-                    label="Käyttäjätunnus"
-                    value={state.username}
-                    onChange={onChange}
-                    placeholder="Anna käyttäjätunnus"
-                    required
-                />
-            </CRow>
-
-            <CRow className="position-relative">
-                <CFormInput
-                    type="password"
-                    id="password"
-                    name="password"
-                    label="Salasana"
-                    value={state.password}
-                    onChange={onChange}
-                    placeholder="Anna salasana"
-                    required
-                />
-            </CRow>
-            <CButton type="submit" id="register">Rekisteröidy</CButton>
-            <h4>{props.error.message}</h4>
-        </CForm>      
+        <CContainer xs="auto" className="overflow-hidden min-vh-100 register">
+            <CForm onSubmit={register}>
+                <CRow className="position-relative p-3">
+                    <CCol sm={4}>
+                    <CFormInput
+                        type="text"
+                        id="username"
+                        name="username"
+                        label="Käyttäjätunnus"
+                        value={state.username}
+                        onChange={onChange}
+                        placeholder="Anna käyttäjätunnus"
+                        required
+                    />
+                    <CFormInput
+                        type="password"
+                        id="password"
+                        name="password"
+                        label="Salasana"
+                        value={state.password}
+                        onChange={onChange}
+                        placeholder="Anna salasana"
+                        required
+                    />
+                    </CCol>
+                </CRow>
+                <CButton type="submit" id="register">Rekisteröidy</CButton>
+                <h4>{props.error.message}</h4>
+            </CForm>      
         </CContainer>  
     )
 }

@@ -65,6 +65,11 @@ body {
 
 }
 
+.product {
+  background: rgb(21, 21, 21);
+  color: white;
+}
+
 .shopping-cart {
   color: white;
   background: rgb(38, 38, 38);
@@ -72,10 +77,14 @@ body {
 
 .product-row {
   background: rgb(16, 16, 16);
-
 }
+
+.register {
+  color: white;
+}
+
 .header {
-  color: black;
+  color: rgb(186, 238, 251);
   background: transparent;
   border: none;
 }

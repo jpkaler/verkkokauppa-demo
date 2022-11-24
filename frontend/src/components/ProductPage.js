@@ -42,15 +42,14 @@ const ProductPage = (props) => {
     }
 
     return (
-        <div>
-            <CContainer fluid className="overflow-hidden min-vh-100">
-                <CRow className="justify-content-center" xs={{ gutter: 4 }}>
+            <CContainer className="overflow-hidden min-vh-100">
+                <CRow className="justify-content-center product p-3" xs={{ gutter: 4 }}>
                     <CCol className="align-self-center">
                         <CImage align="center" fluid src="/placeholder-large.jpg" />
                     </CCol>
-                    <CCol md={8} className="align-self-center">
+                    <CCol md={8} className="align-self-center product">
                         <CHeader>
-                            <h2>{state.product.name}</h2>
+                            <h2>{state.product.name.toUpperCase()}</h2>
                         </CHeader>
                     <CCol>
                             <h6>{state.product.category}</h6>
@@ -60,11 +59,12 @@ const ProductPage = (props) => {
                         <CButton color="secondary" onClick={onClick}>
                             Lisää ostoskoriin
                         </CButton>
+                        <CButton onClick={() => navigate(-1)}>
+                            Takaisin
+                        </CButton>
                     </CCol>
-                    <CButton onClick={() => navigate(-1)}>Takaisin</CButton>
                 </CRow>
             </CContainer>
-        </div>
     )
 };
 
