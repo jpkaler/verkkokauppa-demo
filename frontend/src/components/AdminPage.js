@@ -69,7 +69,7 @@ const AdminPage = (props) => {
                         </CTableRow>
                     </CTableHead>
 
-                    <CTableBody>
+                    <CTableBody className="admin-page">
                     {products}
                     <CTableRow className="admin-page">
                         <CTableDataCell>Lisää tuotteita tietokantaan</CTableDataCell>
