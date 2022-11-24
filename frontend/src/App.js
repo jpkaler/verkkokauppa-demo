@@ -321,7 +321,7 @@ function App() {
                     <Route path="/search" element = {<SearchPage products={state.products} categories={state.categories} setCurrentCategory={setCurrentCategory} setCart={setCart} cart={state.cart}/>} />
                     <Route path="/cart" element={<ShoppingCart cart={state.cart} setCart={setCart} />}/>
                     <Route path="/register" element={<RegisterPage register={register} error={state.error}/>}/>
-                    <Route path="/admin" element={<AdminPage products={state.products} addProduct={addProduct} removeProduct={removeProduct} editProduct={editProduct} />}/>
+                    <Route path="/admin" element={<AdminPage isAdmin={state.isAdmin} products={state.products} addProduct={addProduct} removeProduct={removeProduct} editProduct={editProduct} />}/>
                     <Route path="/:category" element={<CategoryPage categories={state.categories} products={state.products} setCurrentCategory={setCurrentCategory} setCart={setCart} cart={state.cart}/>}/>
                     <Route path="/:category/:productId" element={<ProductPage products={state.products} cart={state.cart} setCart={setCart} currentCategory={state.currentCategory}/>}/>
                   </Routes>

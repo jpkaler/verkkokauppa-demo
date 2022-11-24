@@ -48,7 +48,7 @@ const ShoppingCartRow = (props) => {
     return (
         <CTableRow className="shopping-cart">
             <CTableDataCell>{props.name}</CTableDataCell>
-            <CTableDataCell>{props.price}€</CTableDataCell>
+            <CTableDataCell>{props.price.toFixed(2)}€</CTableDataCell>
             <CTableDataCell>
                 <CButton color="secondary" id="oneLess" name="oneLess" variant="outline" onClick={oneLess}>-</CButton>
                 {props.quantity}

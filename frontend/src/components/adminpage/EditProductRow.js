@@ -1,4 +1,4 @@
-import { CButton } from "@coreui/react";
+import { CButton, CFormInput, CTableDataCell, CTableRow } from "@coreui/react";
 import { useState } from 'react';
 
 const EditProductRow = (props) => {
@@ -27,34 +27,34 @@ const EditProductRow = (props) => {
     }
 
     return (
-        <tr>
-            <td>
-                <input type="text"
+        <CTableRow>
+            <CTableDataCell>
+                <CFormInput type="text"
                         name="name"
                         id="name"
                         onChange={onChange}
                         value={state.name}
                 />
-            </td>
-            <td>
-            <input type="number"
+            </CTableDataCell>
+            <CTableDataCell>
+            <CFormInput type="number"
                     name="price"
                     id="price"
                     onChange={onChange}
                     value={state.price}
             />
-            </td>
-            <td>
-                <input type="text"
+            </CTableDataCell>
+            <CTableDataCell>
+                <CFormInput type="text"
                         name="category"
                         id="category"
                         onChange={onChange}
                         value={state.category}
                 />
-            </td>
-            <td><CButton color="danger" onClick={() => props.changeMode("cancel")}>Cancel</CButton></td>
-            <td><CButton color="success" onClick={onClick}>Confirm</CButton></td>
-        </tr>
+            </CTableDataCell>
+            <CTableDataCell><CButton color="danger" onClick={() => props.changeMode("cancel")}>Cancel</CButton></CTableDataCell>
+            <CTableDataCell><CButton color="success" onClick={onClick}>Confirm</CButton></CTableDataCell>
+        </CTableRow>
     )
 }
 

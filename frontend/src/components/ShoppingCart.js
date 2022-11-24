@@ -16,7 +16,7 @@ const ShoppingCart = (props) => {
   })
 
   const order = () => {
-    setOrderMessage(`Tuotteesi on tilattu! Tilasit vaatteita ${total} eurolla.`);
+    setOrderMessage(`Tuotteesi on tilattu! Tilasit vaatteita ${total.toFixed(2)} eurolla.`);
     props.setCart([]);
   }
 
@@ -35,7 +35,7 @@ const ShoppingCart = (props) => {
             {products} 
             <CTableRow>
               <CTableDataCell className="w-25 shopping-cart" style={{fontWeight:"bold"}}>Yhteensä:</CTableDataCell>
-              <CTableDataCell className="w-25 shopping-cart" style={{fontWeight:"bold"}}>{Math.round(total * 100) / 100}€</CTableDataCell>
+              <CTableDataCell className="w-25 shopping-cart" style={{fontWeight:"bold"}}>{total.toFixed(2)}€</CTableDataCell>
         <CTableDataCell></CTableDataCell>
         <CTableDataCell style={{fontWeight:"bold"}}><CButton onClick={order}>Tilaa</CButton></CTableDataCell>
             </CTableRow>

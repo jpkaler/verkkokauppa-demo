@@ -1,8 +1,9 @@
-import ProductRow from "./ProductRow";
+import AdminProductRow from "./AdminProductRow";
 import AddProductRow from "./adminpage/AddProductRow";
 import RemoveProductRow from "./adminpage/RemoveProductRow";
 import EditProductRow from "./adminpage/EditProductRow";
 import { useState } from 'react';
+import { CHeader, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow, CContainer } from "@coreui/react";
 
 const AdminPage = (props) => {
 
@@ -50,44 +51,51 @@ const AdminPage = (props) => {
             return <EditProductRow key={product.ID} product={product} editProduct={editProduct} changeMode={changeMode} />
         }
         
-        return <ProductRow key={product.ID} product={product} changeMode={changeMode} admin={true}/>
+        return <AdminProductRow key={product.ID} product={product} changeMode={changeMode}/>
     })
 
+    let adminRender = <></>
+
+    if (props.isAdmin) {
+        adminRender = (
+            <CContainer>
+                <CHeader>Adminsivu</CHeader>
+                <CTable>
+                    <CTableHead>
+                        <CTableRow>
+                            <CTableHeaderCell>Nimi</CTableHeaderCell>
+                            <CTableHeaderCell>Hinta</CTableHeaderCell>
+                            <CTableHeaderCell>Kategoria</CTableHeaderCell>
+                        </CTableRow>
+                    </CTableHead>
+
+                    <CTableBody>
+                    {products}
+                    <CTableRow><CTableDataCell>Lisää tuotteita tietokantaan</CTableDataCell></CTableRow>
+                    
+                    </CTableBody>
+                </CTable>
+                <CTable>
+                    <CTableHead>
+                        <CTableRow>
+                            <CTableHeaderCell>Nimi</CTableHeaderCell>
+                            <CTableHeaderCell>Hinta</CTableHeaderCell>
+                            <CTableHeaderCell>Kategoria</CTableHeaderCell>
+                        </CTableRow>
+                    </CTableHead>
+                    <CTableBody>
+                        <AddProductRow addProduct={props.addProduct} />
+                    </CTableBody>
+                </CTable>
+            </CContainer>
+        )
+    }
+
     return (
-        <div>
-            <h2>Adminsivu</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nimi</th>
-                        <th>Hinta</th>
-                        <th>Kategoria</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                {products}
-                <tr><td style={{padding:"15px 0", fontWeight:"bold"}}>Lisää tuotteita tietokantaan</td></tr>
-                
-                </tbody>
-            </table>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nimi</th>
-                        <th>Hinta</th>
-                        <th>Kategoria</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <AddProductRow addProduct={props.addProduct} />
-                </tbody>
-            </table>
-        </div>
+        <>
+            {adminRender}
+        </>
     ) 
-    // Tuotelista + Napit edit ja remove
-    
-
 }
 
 export default AdminPage;
