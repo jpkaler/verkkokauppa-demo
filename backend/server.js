@@ -40,11 +40,9 @@ passport.use('local-login', new LocalStrategy({
             $username: username
         }, (err, user) => {
             if (err) {
-                console.log("ERRORIA")
                 return done(err);
             }
             if (!user) {
-                console.log("Käyttäjää ei ole!")
                 return done(null, false, {message: "Username not in database"});
             }
             bcrypt.compare(password, user.password, (err, match) => {
@@ -53,13 +51,8 @@ passport.use('local-login', new LocalStrategy({
                     return done(err);
                 }
                 if (!match) {
-                    console.log("Salasanat ei täsmää!")
                     return done(null, false, {message: "Wrong password!"});
                 }
-                let token = createToken();
-                /* req.session.token = token;
-                req.session.user = username; */
-                console.log("passport strategy session:", req.session);
                 return done(null, user);
             })
         })
@@ -99,12 +92,6 @@ const passwordHash = async (password, saltRounds) => {
         console.log(`Server responded with error ${error}: ${error.message}`);
     }
     return null;
-}
-
-// Create Token -function
-const createToken = () => {
-    let token = crypto.randomBytes(64);
-    return token.toString("hex");
 }
 
 // POST - login -> tarkistetaan onnistuuko login
