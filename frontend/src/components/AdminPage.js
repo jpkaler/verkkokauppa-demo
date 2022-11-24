@@ -58,11 +58,11 @@ const AdminPage = (props) => {
 
     if (props.isAdmin) {
         adminRender = (
-            <CContainer>
+            <CContainer className="admin-page">
                 <CHeader>Adminsivu</CHeader>
                 <CTable>
                     <CTableHead>
-                        <CTableRow>
+                        <CTableRow className="admin-page">
                             <CTableHeaderCell>Nimi</CTableHeaderCell>
                             <CTableHeaderCell>Hinta</CTableHeaderCell>
                             <CTableHeaderCell>Kategoria</CTableHeaderCell>
@@ -71,19 +71,21 @@ const AdminPage = (props) => {
 
                     <CTableBody>
                     {products}
-                    <CTableRow><CTableDataCell>Lisää tuotteita tietokantaan</CTableDataCell></CTableRow>
+                    <CTableRow className="admin-page">
+                        <CTableDataCell>Lisää tuotteita tietokantaan</CTableDataCell>
+                        </CTableRow>
                     
                     </CTableBody>
                 </CTable>
                 <CTable>
                     <CTableHead>
-                        <CTableRow>
+                        <CTableRow className="admin-page">
                             <CTableHeaderCell>Nimi</CTableHeaderCell>
                             <CTableHeaderCell>Hinta</CTableHeaderCell>
                             <CTableHeaderCell>Kategoria</CTableHeaderCell>
                         </CTableRow>
                     </CTableHead>
-                    <CTableBody>
+                    <CTableBody className="admin-page">
                         <AddProductRow addProduct={props.addProduct} />
                     </CTableBody>
                 </CTable>

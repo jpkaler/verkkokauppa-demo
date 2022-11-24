@@ -65,6 +65,11 @@ body {
 
 }
 
+.admin-page {
+  background: rgb(52, 5, 5);
+  color: white;
+}
+
 .product {
   background: rgb(21, 21, 21);
   color: white;
