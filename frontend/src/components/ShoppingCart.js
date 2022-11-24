@@ -1,6 +1,5 @@
 import ShoppingCartRow from "./ShoppingCartRow";
-import ProductRow from "./ProductRow";
-import { CContainer, CFooter, CRow, CCol, CButton, CTable, CTableHead, CTableBody, CTableHeaderCell, CTableRow, CTableDataCell } from '@coreui/react';
+import { CContainer, CButton, CTable, CTableHead, CTableBody, CTableHeaderCell, CTableRow, CTableDataCell } from '@coreui/react';
 import { useState } from 'react';
 
 const ShoppingCart = (props) => {
@@ -39,9 +38,9 @@ const ShoppingCart = (props) => {
         <CTableDataCell></CTableDataCell>
         <CTableDataCell style={{fontWeight:"bold"}}><CButton onClick={order}>Tilaa</CButton></CTableDataCell>
             </CTableRow>
-            <CTableRow>
-              <CTableDataCell colspan="3"><h2>{orderMessage}</h2></CTableDataCell>
-              <CTableDataCell colspan="3"></CTableDataCell>
+            <CTableRow className="shopping-cart">
+              <CTableDataCell colSpan="3"><h2>{orderMessage}</h2></CTableDataCell>
+              <CTableDataCell colSpan="3"></CTableDataCell>
             </CTableRow>
           </CTableBody>
         </CTable>

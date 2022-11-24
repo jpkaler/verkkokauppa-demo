@@ -1,5 +1,5 @@
 import ProductRow from './ProductRow';
-import { CTable, CTableHead, CTableHeaderCell, CTableRow, CTableBody, CTableDataCell, CContainer, CRow } from "@coreui/react";
+import { CContainer, CRow } from "@coreui/react";
 
 /* 
 const UP_ARROW = '&#8593;';

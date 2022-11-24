@@ -1,5 +1,4 @@
 import { CButton, CTableDataCell, CTableRow } from '@coreui/react';
-import { Link } from 'react-router-dom';
 
 const ShoppingCartRow = (props) => {
 

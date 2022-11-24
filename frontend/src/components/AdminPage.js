@@ -58,7 +58,7 @@ const AdminPage = (props) => {
 
     if (props.isAdmin) {
         adminRender = (
-            <CContainer className="admin-page">
+            <CContainer className="admin-page overflow-hidden min-vh-100">
                 <CHeader>Adminsivu</CHeader>
                 <CTable>
                     <CTableHead>

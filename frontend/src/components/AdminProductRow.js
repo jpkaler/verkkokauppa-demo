@@ -1,4 +1,4 @@
-import { CTableRow, CCol, CImage, CButton, CContainer, CTableDataCell } from '@coreui/react';
+import { CTableRow, CButton, CTableDataCell } from '@coreui/react';
 
 const AdminProductRow = (props) => {
 

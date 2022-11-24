@@ -1,5 +1,5 @@
 import { Link, useNavigate,useLocation } from 'react-router-dom';
-import { CFooter,CNavbar, CNavbarBrand, CNavbarNav, CNavLink, CNavItem, CHeaderBrand, CForm, CFormInput, CContainer, CButton, CImage, CRow, CCol, CTooltip } from '@coreui/react'
+import { CNavbar, CNavbarBrand, CNavLink, CForm, CFormInput, CContainer, CButton, CRow, CCol } from '@coreui/react'
 import { useState } from 'react';
 
 const Navbar = (props) => {
@@ -95,7 +95,7 @@ const Navbar = (props) => {
         <CContainer fluid>
             <CCol md="auto">
             <Link to="/">
-                <CNavbarBrand href="#">
+                <CNavbarBrand>
                     <img
                     src="/icon.png"
                     alt=""

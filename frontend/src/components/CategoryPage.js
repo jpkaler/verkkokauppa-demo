@@ -1,6 +1,6 @@
 import CategoryBar from "./CategoryBar";
 import ProductList from "./ProductList";
-import { CFooter, CCol, CContainer, CRow } from "@coreui/react";
+import { CCol, CContainer, CRow } from "@coreui/react";
 
 
 const CategoryPage = (props) => {

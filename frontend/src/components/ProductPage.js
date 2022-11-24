@@ -1,7 +1,6 @@
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { CRow, CImage, CContainer, CCol, CHeader, CButton } from '@coreui/react';
-import CategoryBar from "./CategoryBar";
 
 const ProductPage = (props) => {
     

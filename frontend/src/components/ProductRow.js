@@ -1,4 +1,4 @@
-import { CRow, CCol, CImage, CButton, CContainer, CTable, CTableHead, CTableHeaderCell, CTableRow, CTableBody, CTableDataCell } from '@coreui/react';
+import { CRow, CCol, CImage, CButton, CTableDataCell } from '@coreui/react';
 import { Link } from 'react-router-dom';
 
 const ProductRow = (props) => {
