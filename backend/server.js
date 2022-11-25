@@ -1,10 +1,6 @@
 const express = require('express');
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
-const sqlite3 = require('sqlite3');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcrypt');
 const productRouter = require('./routes/productRoutes');
 const userRouter = require('./routes/userRoutes');
 

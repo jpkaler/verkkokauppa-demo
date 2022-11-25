@@ -9,7 +9,6 @@ userRouter = express.Router();
 // Product Database
 const db = new sqlite3.Database('./db/products.db');
 
-
 // Passport JS Middleware
 userRouter.use(passport.initialize());
 userRouter.use(passport.session());
