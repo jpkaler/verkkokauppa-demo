@@ -209,7 +209,7 @@ function App() {
   // Url request actions
   const register = (user) => {
     setUrlRequest({
-      url:"/register",
+      url:"/api/users/register",
       request:{
         method:"POST",
         headers:{"Content-Type":"application/json"},
@@ -221,7 +221,7 @@ function App() {
 
   const login = (user) => {
     setUrlRequest({
-      url:"/login",
+      url:"/api/users/login",
       request:{
         method:"POST",
         headers:{"Content-Type":"application/json"},
@@ -233,7 +233,7 @@ function App() {
 
   const logout = () => {
     setUrlRequest({
-      url:"/logout",
+      url:"/api/users/logout",
       request:{
         method:"POST",
         headers:{"Content-Type":"application/json"}
