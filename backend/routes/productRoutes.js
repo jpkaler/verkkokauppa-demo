@@ -42,7 +42,6 @@ productRouter.get("/categories/:category", (req, res) => {
         {
             $category: req.params.category
         }, (err, rows) => {
-            console.log(req.user);
             return res.status(200).json(rows);
         })
 })
