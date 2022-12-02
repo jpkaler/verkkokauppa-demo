@@ -1,5 +1,5 @@
 import { Link, useNavigate,useLocation } from 'react-router-dom';
-import { CNavbar, CNavbarBrand, CNavLink, CForm, CFormInput, CContainer, CButton, CRow, CCol } from '@coreui/react'
+import { CNavbar, CNavbarBrand, CNavLink, CForm, CFormInput, CContainer, CButton, CCol } from '@coreui/react'
 import { useState } from 'react';
 
 const Navbar = (props) => {
@@ -61,31 +61,28 @@ const Navbar = (props) => {
         }
         
         loginRender = (<>
-            <CButton>{props.user}</CButton>
+            <CButton onClick={() => navigate("/profile")}>{props.user}</CButton>
             {adminButton}
             <CButton onClick={logoutClick} name="logout">Kirjaudu ulos</CButton>
         </>)
     } else {
         loginRender = (
         <CContainer fluid>
-                <CForm name="login" className="row g-3">
+            <CForm name="login" className="row g-3">
                 <CCol xs="auto">
-            <CFormInput type="text" size="sm" name="username" id="username" placeholder='Käyttäjätunnus' onChange={onChange} value={state.username} />
-            <CFormInput className="me-2" type="password" size="sm" name="password" id="password" placeholder='Salasana' onChange={onChange} value={state.password} />
+                    <CFormInput type="text" size="sm" name="username" id="username" placeholder='Käyttäjätunnus' onChange={onChange} value={state.username} />
+                    <CFormInput className="me-2" type="password" size="sm" name="password" id="password" placeholder='Salasana' onChange={onChange} value={state.password} />
+                </CCol>
+                
+                <CCol xs="auto">
+                    <CButton type="submit" color="dark" onClick={loginClick} shape="rounded-0" variant="outline">
+                        Kirjaudu sisään
+                    </CButton>
+                    <CButton component="a" color="dark" shape="rounded-0" variant="outline" onClick={() => navigate("/register")}>
+                            Rekisteröidy
+                    </CButton>
                 </CCol>
             </CForm>
-            <CRow>
-            <CCol xs="auto">
-            <CButton type="submit" color="dark" onClick={loginClick} shape="rounded-0" variant="outline">
-                <CNavLink to="/">
-                    Kirjaudu sisään
-                </CNavLink>
-            </CButton>
-            <CButton component="a" color="dark" shape="rounded-0" variant="outline" onClick={() => navigate("/register")}>
-                    Rekisteröidy
-            </CButton>
-            </CCol>
-            </CRow>
         </CContainer>
         )
     }

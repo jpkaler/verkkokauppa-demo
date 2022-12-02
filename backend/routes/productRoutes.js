@@ -1,22 +1,12 @@
 const express = require('express');
 const sqlite3 = require('sqlite3');
+const isAdmin = require('../middleware/isAdmin');
 
 // Router
 productRouter = express.Router();
 
 // Product Database
 const db = new sqlite3.Database('./db/products.db');
-
-// Admin middleware
-const isAdmin = (req, res, next) => {
-    if (!req.user) {
-        return res.status(401).json({message: "You do not have permission to do this."});
-    } else if (req.user.admin !== 1) {
-        return res.status(401).json({message: "You do not have permission to do this."});
-    } else {
-        next();
-    }
-}
 
 // GET -> Kaikki tuotteet hakuehdon mukaan
 productRouter.get("/", (req,res) => {  
@@ -52,6 +42,7 @@ productRouter.get("/categories/:category", (req, res) => {
         {
             $category: req.params.category
         }, (err, rows) => {
+            console.log(req.user);
             return res.status(200).json(rows);
         })
 })

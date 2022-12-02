@@ -1,10 +1,7 @@
 import ShoppingCartRow from "./ShoppingCartRow";
 import { CContainer, CButton, CTable, CTableHead, CTableBody, CTableHeaderCell, CTableRow, CTableDataCell } from '@coreui/react';
-import { useState } from 'react';
 
 const ShoppingCart = (props) => {
-
-  const [orderMessage, setOrderMessage] = useState("");
 
   let total = 0.00;
   
@@ -15,7 +12,20 @@ const ShoppingCart = (props) => {
   })
 
   const order = () => {
-    setOrderMessage(`Tuotteesi on tilattu! Tilasit vaatteita ${total.toFixed(2)} eurolla.`);
+    
+    let orderedProducts = "";
+    for (const product of props.cart) {
+      orderedProducts += `${product.name}:${product.quantity},`;
+    }
+    let time = Date.now();
+
+    let order = {total, orderedProducts, time};
+    
+    
+    
+    props.setOrderMessage(`Tuotteesi on tilattu! Tilasit vaatteita ${total.toFixed(2)} eurolla.`);
+    console.log("ordermessage now");
+    props.addOrder(order);
     props.setCart([]);
   }
 
@@ -39,7 +49,7 @@ const ShoppingCart = (props) => {
         <CTableDataCell style={{fontWeight:"bold"}}><CButton onClick={order}>Tilaa</CButton></CTableDataCell>
             </CTableRow>
             <CTableRow className="shopping-cart">
-              <CTableDataCell colSpan="3"><h2>{orderMessage}</h2></CTableDataCell>
+              <CTableDataCell colSpan="3"><h2>{props.orderMessage}</h2></CTableDataCell>
               <CTableDataCell colSpan="3"></CTableDataCell>
             </CTableRow>
           </CTableBody>

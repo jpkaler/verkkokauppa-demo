@@ -9,8 +9,8 @@ import HomePage from './components/HomePage';
 import CategoryPage from './components/CategoryPage';
 import Footer from './components/Footer';
 import SearchPage from './components/SearchPage';
-import { CButton } from '@coreui/react';
 import RegisterPage from './components/RegisterPage';
+import ProfilePage from './components/ProfilePage';
 
 function App() {
 
@@ -22,8 +22,10 @@ function App() {
     categories:[],
     currentCategory:"",
     user:"",
+    userOrders:[],
     isLogged: false,
-    isAdmin: false
+    isAdmin: false,
+    orderMessage: ""
   })
 
   const [urlRequest, setUrlRequest] = useState({
@@ -60,13 +62,23 @@ function App() {
     })
   }
 
+  const setOrderMessage = (message) => {
+    setState((state) => {
+      return {
+        ...state,
+        orderMessage: message
+      }
+    })
+  }
+
   const setHomePageState = () => {
     setState((state) => {
       return {
         ...state,
-        products:[],
+        products: [],
         currentCategory: "",
-        error:""
+        error: "",
+        orderMessage: ""
       }
     })
   }
@@ -141,6 +153,7 @@ function App() {
                 isAdmin: loginData.admin
               }
             })
+            getOrders();
             return;
           case "logout":
             setState((state) => {
@@ -148,10 +161,24 @@ function App() {
                 ...state,
                 isLogged: false,
                 user: "",
-                isAdmin: false
+                isAdmin: false,
+                userOrders:[]
               }
             })
             console.log("Logout successful!");
+            return;
+          case "addorder":
+            let success = await response.json();
+            console.log(success.message);
+            return;
+          case "getorders":
+            let orders = await response.json();
+            setState((state) => {
+              return {
+                ...state,
+                userOrders: orders
+              }
+            })
             return;
           default:
             return;
@@ -184,6 +211,7 @@ function App() {
             console.log("Login failed");
             let loginError = await response.json();
             console.log(loginError);
+            return;
           default:
             return;
         }
@@ -239,6 +267,29 @@ function App() {
         headers:{"Content-Type":"application/json"}
       },
       action: "logout"
+    })
+  }
+
+  const getOrders = () => {
+    setUrlRequest({
+      url: "/api/orders",
+      request:{
+        method:"GET",
+        headers:{"Content-Type":"application/json"}
+      },
+      action: "getorders"
+    })
+  }
+
+  const addOrder = (order) => {
+    setUrlRequest({
+      url: "/api/orders",
+      request:{
+        method:"POST",
+        headers:{"Content-Type": "application/json"},
+        body: JSON.stringify(order)
+      },
+      action: "addorder"
     })
   }
 
@@ -319,9 +370,10 @@ function App() {
     tempRender = <Routes>
                     <Route exact path="/" element={<HomePage products={state.products} error={state.error} categories={state.categories} setCurrentCategory={setCurrentCategory} setHomePageState={setHomePageState}/>}/>
                     <Route path="/search" element = {<SearchPage products={state.products} categories={state.categories} setCurrentCategory={setCurrentCategory} setCart={setCart} cart={state.cart}/>} />
-                    <Route path="/cart" element={<ShoppingCart cart={state.cart} setCart={setCart} />}/>
+                    <Route path="/cart" element={<ShoppingCart cart={state.cart} setCart={setCart} addOrder={addOrder} orderMessage={state.orderMessage} setOrderMessage={setOrderMessage}/>}/>
                     <Route path="/register" element={<RegisterPage register={register} error={state.error}/>}/>
                     <Route path="/admin" element={<AdminPage isAdmin={state.isAdmin} products={state.products} addProduct={addProduct} removeProduct={removeProduct} editProduct={editProduct} />}/>
+                    <Route path="/profile" element={<ProfilePage user={state.user}  getOrders={getOrders} userOrders={state.userOrders} />}/>
                     <Route path="/:category" element={<CategoryPage categories={state.categories} products={state.products} setCurrentCategory={setCurrentCategory} setCart={setCart} cart={state.cart}/>}/>
                     <Route path="/:category/:productId" element={<ProductPage products={state.products} cart={state.cart} setCart={setCart} currentCategory={state.currentCategory}/>}/>
                   </Routes>
