@@ -6,7 +6,7 @@ const isAdmin = require('../middleware/isAdmin');
 productRouter = express.Router();
 
 // Product Database
-const db = new sqlite3.Database('./db/products.db');
+const db = new sqlite3.Database('../mockproducts.db');
 
 // GET -> Kaikki tuotteet hakuehdon mukaan
 productRouter.get("/", (req,res) => {  

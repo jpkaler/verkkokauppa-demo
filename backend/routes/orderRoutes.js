@@ -5,7 +5,7 @@ const sqlite3 = require('sqlite3');
 orderRouter = express.Router();
 
 // Database
-const db = new sqlite3.Database('./db/products.db');
+const db = new sqlite3.Database('../mockproducts.db');
 
 // GET -> All orders from current user
 orderRouter.get("/", (req,res) => {
