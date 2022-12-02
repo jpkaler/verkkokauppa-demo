@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 // App Database
-const db = new sqlite3.Database('./db/products.db');
+const db = new sqlite3.Database('../mockData.db');
 
 // Current session
 app.use(
