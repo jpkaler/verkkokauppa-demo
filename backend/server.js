@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 // App Database
-const db = new sqlite3.Database('./db/products.db');
+const db = new sqlite3.Database('../mockproducts.db');
 
 // Current session
 app.use(
@@ -23,7 +23,7 @@ app.use(
         cookie:{ maxAge: 1000 * 60 * 60},
         resave: false,
         saveUnitialized: false,
-        store: new SQLiteStore({ db: 'sessions.db', dir: './db' })
+        store: new SQLiteStore({ db: 'sessions.db', dir: '../' })
     })
 )
 
