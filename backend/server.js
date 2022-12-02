@@ -23,7 +23,7 @@ app.use(
         cookie:{ maxAge: 1000 * 60 * 60},
         resave: false,
         saveUnitialized: false,
-        store: new SQLiteStore({ db: 'sessions.db', dir: './db' })
+        store: new SQLiteStore({ db: 'sessions.db', dir: '../' })
     })
 )
 
